@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huzaifa's Game Factory</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0f0f1a; color: #fff; min-height: 100vh; }
+  header { text-align: center; padding: 48px 20px 16px; }
+  header h1 { font-size: 2.2rem; letter-spacing: 1px; }
+  header h1 span { color: #ffb300; }
+  header p { color: #9aa0b4; margin-top: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 1100px; margin: 32px auto; padding: 0 20px 60px; }
+  .card { background: #1a1a2e; border-radius: 16px; padding: 28px 20px; text-align: center; text-decoration: none; color: #fff; border: 1px solid #2a2a44; transition: transform .15s, border-color .15s; }
+  .card:hover { transform: translateY(-4px); border-color: #ffb300; }
+  .card .emoji { font-size: 2.6rem; }
+  .card h2 { font-size: 1.15rem; margin: 12px 0 6px; }
+  .card p { color: #9aa0b4; font-size: .88rem; line-height: 1.45; }
+  footer { text-align: center; color: #5a5f73; font-size: .8rem; padding: 0 20px 32px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎮 <span>GAME</span> FACTORY</h1>
+  <p>Eight hand-built web games. Pick one and play — no downloads, no sign-up.</p>
+</header>
+<div class="grid">
+  <a class="card" href="gully-champion.html"><div class="emoji">🏏</div><h2>Gully Champion</h2><p>Tape-ball street cricket. Time your shots, chase the target.</p></a>
+  <a class="card" href="duskline.html"><div class="emoji">🌆</div><h2>Duskline</h2><p>A moody neon ride through the city at dusk.</p></a>
+  <a class="card" href="truck-art-rally/"><div class="emoji">🚚</div><h2>Truck Art Rally</h2><p>Race a truck-art painted rig in a colorful rally.</p></a>
+  <a class="card" href="bazaar-siege.html"><div class="emoji">🏰</div><h2>Bazaar Siege</h2><p>Lane tower defense — hold the bazaar against waves of invaders.</p></a>
+  <a class="card" href="skyline-stack.html"><div class="emoji">🏗️</div><h2>Skyline Stack</h2><p>One-tap tower stacker. How high can you build?</p></a>
+  <a class="card" href="wobble-world.html"><div class="emoji">🫧</div><h2>Wobble World</h2><p>A soft, squishy physics playground full of surprises.</p></a>
+  <a class="card" href="ruckus-rampage.html"><div class="emoji">💥</div><h2>Ruckus Rampage</h2><p>Physics party-brawler. Last one standing wins.</p></a>
+  <a class="card" href="blob-arena.html"><div class="emoji">🟢</div><h2>Blob Arena</h2><p>Grow your blob, dodge bigger ones, rule the arena.</p></a>
+</div>
+<footer>Built with Phaser 3 · Playable on phone &amp; desktop</footer>
+</body>
+</html>

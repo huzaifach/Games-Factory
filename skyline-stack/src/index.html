@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#160f38">
+<title>Skyline Stack</title>
+<style>
+/*__STYLES__*/
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="game"></canvas>
+
+  <!-- in-game HUD -->
+  <div id="hud" class="hidden">
+    <div id="hud-left">
+      <div id="hud-height">0</div>
+      <div id="hud-floors">FLOORS</div>
+      <div id="hud-best">BEST 0</div>
+    </div>
+    <div id="hud-goal">Build as tall as you can!</div>
+    <div id="hud-right">
+      <button id="btn-pause" class="round-btn" aria-label="Pause">⏸</button>
+      <button id="btn-mute" class="round-btn" aria-label="Mute">🔊</button>
+    </div>
+    <div id="windmeter" class="hidden">
+      <span id="wind-label">WIND</span>
+      <div id="wind-track"><div id="wind-fill"></div></div>
+      <span id="wind-arrow">→</span>
+    </div>
+  </div>
+  <div id="hint" class="hidden"></div>
+  <div id="toasts"></div>
+  <div id="banner"><div id="banner-title"></div><div id="banner-sub"></div></div>
+
+  <!-- loader -->
+  <div id="screen-loader" class="screen">
+    <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
+    <h1 class="title">SKYLINE STACK</h1>
+    <p class="subtitle">one tap. endless tower.</p>
+    <div id="load-track"><div id="load-fill"></div></div>
+    <div id="load-row"><span id="load-label">Starting…</span><span id="load-pct">0%</span></div>
+    <button id="btn-boot-start" class="big-btn hidden">TAP TO ENTER</button>
+  </div>
+
+  <!-- menu -->
+  <div id="screen-menu" class="screen hidden">
+    <h1 class="title">SKYLINE STACK</h1>
+    <div id="menu-best" class="chip">NO TOWER YET — BUILD YOUR FIRST!</div>
+    <button id="btn-start" class="big-btn">🏗 START BUILDING</button>
+    <div class="section-label">TOWER THEME</div>
+    <div id="theme-row"></div>
+    <div class="menu-row">
+      <button id="btn-howto" class="mid-btn">❓ HOW TO PLAY</button>
+      <button id="btn-mute-menu" class="mid-btn">🔊 SOUND</button>
+    </div>
+    <p class="footnote">Tip: land it dead-center for PERFECT — the floor grows back!</p>
+  </div>
+
+  <!-- how to play -->
+  <div id="screen-howto" class="screen hidden">
+    <h2 class="title-sm">HOW TO PLAY</h2>
+    <div class="howto-card">
+      <canvas id="demo1" width="220" height="120"></canvas>
+      <p><b>1. Watch the crane.</b> The floor swings on its cable. Tap anywhere — or press Space — the moment it lines up with your tower.</p>
+    </div>
+    <div class="howto-card">
+      <canvas id="demo2" width="220" height="120"></canvas>
+      <p><b>2. Drop it straight.</b> The dashed line shows where it will land. Land in the middle for <b>PERFECT</b> — close enough and the tower <b>saves</b> it in slow motion.</p>
+    </div>
+    <div class="howto-card">
+      <canvas id="demo3" width="220" height="120"></canvas>
+      <p><b>3. Build as tall as you can.</b> Perfect drops grow the floor back and build your combo. From floor 15, watch the wind meter — gusts bend the tower!</p>
+    </div>
+    <button id="btn-howto-start" class="big-btn">GOT IT — BUILD!</button>
+    <button id="btn-howto-back" class="link-btn">← Back</button>
+  </div>
+
+  <!-- pause -->
+  <div id="screen-pause" class="screen dim hidden">
+    <div class="panel">
+      <h2 class="title-sm">PAUSED</h2>
+      <button id="btn-resume" class="big-btn">▶ RESUME</button>
+      <button id="btn-restart" class="mid-btn">↻ RESTART</button>
+      <button id="btn-pause-howto" class="mid-btn">❓ HOW TO PLAY</button>
+      <button id="btn-quit" class="link-btn">Quit to menu</button>
+    </div>
+  </div>
+
+  <!-- game over -->
+  <div id="screen-gameover" class="screen dim hidden">
+    <div class="panel">
+      <div id="go-newbest" class="hidden">🎉 NEW BEST! 🎉</div>
+      <h2 class="title-sm">TOWER COMPLETE</h2>
+      <div id="go-height">0</div>
+      <div class="chip">FLOORS</div>
+      <div id="go-stars" class="stars">☆☆☆☆☆</div>
+      <div id="go-next" class="chip">NEXT STAR AT 25 FLOORS</div>
+      <div id="go-best" class="chip">BEST 0</div>
+      <div id="go-combo" class="chip"></div>
+      <button id="btn-again" class="big-btn">↻ BUILD AGAIN</button>
+      <div class="menu-row">
+        <button id="btn-share" class="mid-btn">📤 SHARE CARD</button>
+        <button id="btn-go-themes" class="mid-btn">🎨 THEMES</button>
+      </div>
+      <button id="btn-go-menu" class="link-btn">Menu</button>
+    </div>
+  </div>
+
+  <!-- fatal error -->
+  <div id="errbox" class="screen hidden">
+    <div class="panel">
+      <h2 class="title-sm">SOMETHING WENT WRONG</h2>
+      <p id="err-msg">The game could not start.</p>
+      <button id="btn-retry" class="big-btn">TRY AGAIN</button>
+    </div>
+  </div>
+</div>
+<script>
+/*__LOGIC__*/
+</script>
+<script>
+/*__AUDIO__*/
+</script>
+<script>
+/*__GAME__*/
+</script>
+</body>
+</html>
