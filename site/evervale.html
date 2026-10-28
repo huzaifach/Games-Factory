@@ -149,6 +149,27 @@
   #loading-text { color:#bcd8ea; font-size:15px; }
   .setrow { display:flex; justify-content:space-between; align-items:center; margin:9px 0; font-size:15px; gap:10px; }
   .setrow input[type=range] { width:150px; } .setrow select { padding:5px 8px; border-radius:6px; background:#101827; color:#fff; border:1px solid #c9a44e; font-family:inherit; }
+  .icimg { vertical-align:-8px; margin-right:5px; }
+  .hudic { width:18px; height:18px; vertical-align:-4px; margin-right:5px; }
+  .tic { width:25px; height:25px; }
+  .dieimg { width:46px; height:46px; margin:0 3px; }
+  .powericon img { display:block; margin:0 auto; }
+  /* Small screens: compact HUD, smaller and lighter touch controls so
+     the world stays visible (player feedback: too much was covered). */
+  @media (max-width: 760px) {
+    .tbtn { width:54px; height:54px; font-size:9.5px; opacity:0.62; border-radius:14px; }
+    .tic { width:20px; height:20px; }
+    #joystick { width:102px; height:102px; opacity:0.62; }
+    #joyknob { width:44px; height:44px; }
+    .barwrap { width:118px; }
+    .powericon { width:40px; height:40px; }
+    .powericon img { width:24px; height:24px; }
+    .powericon .pkey { display:none; }
+    #objective { font-size:11.5px; max-width:47vw; left:8px; right:auto; transform:none; top:92px; text-align:left; }
+    .ttop { font-size:10px; padding:6px 8px; opacity:0.75; }
+    #hud { transform-origin: top left; }
+    #toasts { bottom:196px; left:10px; max-width:58vw; }
+  }
 </style>
 </head>
 <body>
@@ -162,45 +183,45 @@
     <div class="barwrap"><div class="barfill" id="hpfill"></div><div class="barlabel" id="hplabel">HP 100</div></div>
     <div class="barwrap"><div class="barfill" id="staminafill"></div><div class="barlabel">Stamina</div></div>
     <div class="barwrap"><div class="barfill" id="manafill"></div><div class="barlabel" id="manalabel">Mana 60</div></div>
-    <div class="barwrap"><div class="barfill" id="wonderfill" style="width:0%"></div><div class="barlabel">☀️ Wonder (Sunfall)</div></div>
+    <div class="barwrap"><div class="barfill" id="wonderfill" style="width:0%"></div><div class="barlabel">Wonder (Sunfall)</div></div>
   </div>
   <div id="objective">Welcome to Evervale</div>
   <div id="topright">
-    <span class="row"><div id="coinlabel">🪙 0</div></span>
-    <span class="row"><div id="wisplabel">✨ Wisps 0/20</div></span>
-    <span class="row"><div id="clocklabel">🕗 08:00 ☀️ Clear</div></span>
+    <span class="row"><img class="hudic" data-icon="coin" alt=""><div id="coinlabel">0 coins · 0 arrows</div></span>
+    <span class="row"><img class="hudic" data-icon="spark" alt=""><div id="wisplabel">Wisps 0/20</div></span>
+    <span class="row"><img class="hudic" id="weathericon" alt=""><div id="clocklabel">08:00 · Clear</div></span>
   </div>
   <div id="prompt" class="hidden"></div>
   <div id="bossbar" class="hidden"><div id="bossname">Boss</div><div class="barwrap"><div class="barfill" id="bossfill"></div></div></div>
   <div id="powers">
-    <div class="powericon sel" data-power="ember">🔥<span class="pkey">1 · R</span></div>
-    <div class="powericon" data-power="frost">❄️<span class="pkey">2 · R</span></div>
-    <div class="powericon" data-power="gale">🌪️<span class="pkey">3 · R</span></div>
-    <div class="powericon" id="bigicon">☀️<span class="pkey">T · BIG</span></div>
+    <div class="powericon sel" data-power="ember"><span class="pkey">1 · R</span></div>
+    <div class="powericon" data-power="frost"><span class="pkey">2 · R</span></div>
+    <div class="powericon" data-power="gale"><span class="pkey">3 · R</span></div>
+    <div class="powericon" id="bigicon"><span class="pkey">T · BIG</span></div>
   </div>
   <div id="toasts"></div>
 </div>
 <div id="dmgcontainer"></div>
 <div id="vignette"></div>
 <div id="fadeblack"></div>
-<div id="crosshair" class="hidden">✛</div>
+<div id="crosshair" class="hidden">+</div>
 
 <!-- ================= TOUCH ================= -->
 <div id="touch-ui" class="hidden">
   <div id="joystick"><div id="joyknob"></div></div>
-  <button class="tbtn" id="t-attack" data-act="attack">⚔️<br>ATK</button>
-  <button class="tbtn" id="t-heavy" data-act="heavy">💥<br>HVY</button>
-  <button class="tbtn" id="t-jump" data-act="jump">⬆️<br>JUMP</button>
-  <button class="tbtn" id="t-dodge" data-act="dodge">🌀<br>DODGE</button>
-  <button class="tbtn" id="t-cast" data-act="cast">🔥<br>POW</button>
-  <button class="tbtn" id="t-big" data-act="big">☀️<br>BIG</button>
-  <button class="tbtn" id="t-interact" data-act="interact">✋<br>USE</button>
-  <button class="tbtn" id="t-aim" data-act="aim">🏹<br>AIM</button>
+  <button class="tbtn" id="t-attack" data-act="attack"><img class="tic" data-icon="sword" data-tint="#d5dbe2" alt=""><br>ATK</button>
+  <button class="tbtn" id="t-heavy" data-act="heavy"><img class="tic" data-icon="burst" data-tint="#ffca7a" alt=""><br>HVY</button>
+  <button class="tbtn" id="t-jump" data-act="jump"><img class="tic" data-icon="chevron" data-tint="#aee2ff" alt=""><br>JUMP</button>
+  <button class="tbtn" id="t-dodge" data-act="dodge"><img class="tic" data-icon="swirl" data-tint="#a8ffb0" alt=""><br>DODGE</button>
+  <button class="tbtn" id="t-cast" data-act="cast"><img class="tic" data-icon="flame" data-tint="#ff7a33" alt=""><br>POW</button>
+  <button class="tbtn" id="t-big" data-act="big"><img class="tic" data-icon="sun" data-tint="#ffd94d" alt=""><br>BIG</button>
+  <button class="tbtn" id="t-interact" data-act="interact"><img class="tic" data-icon="pointer" data-tint="#ffd9a0" alt=""><br>USE</button>
+  <button class="tbtn" id="t-aim" data-act="aim"><img class="tic" data-icon="bow" data-tint="#d8c28a" alt=""><br>AIM</button>
   <div id="touch-top">
-    <div class="ttop" id="tt-inv">🎒</div>
-    <div class="ttop" id="tt-map">🗺️</div>
-    <div class="ttop" id="tt-journal">📖</div>
-    <div class="ttop" id="tt-pause">⏸️</div>
+    <div class="ttop" id="tt-inv">BAG</div>
+    <div class="ttop" id="tt-map">MAP</div>
+    <div class="ttop" id="tt-journal">LOG</div>
+    <div class="ttop" id="tt-pause">MENU</div>
   </div>
 </div>
 
@@ -210,8 +231,8 @@
   <div class="game-sub">An open-world adventure - explore, fight, fish, and relight the valley's heart.</div>
   <button class="gbtn primary" id="btn-new">▶ New Adventure</button><br>
   <button class="gbtn" id="btn-continue">↻ Continue</button>
-  <button class="gbtn" id="btn-how">❓ How to Play</button>
-  <button class="gbtn" id="btn-settings-title">⚙️ Settings</button>
+  <button class="gbtn" id="btn-how">How to Play</button>
+  <button class="gbtn" id="btn-settings-title">Settings</button>
   <p id="title-save-note" style="color:#9fc6d8; font-size:13.5px; margin-top:12px;"></p>
   <p style="color:#77879c; font-size:12.5px;">Vertical Slice - one full region of the planned full game.<br>Every graphic and sound in this game is generated from code.</p>
 </div>
@@ -226,19 +247,19 @@
   <div class="swrow"><span class="swlabel">Hair colour</span><span id="cc-haircolor"></span></div>
   <div class="swrow"><span class="swlabel">Hair style</span><span id="cc-hairstyle"></span></div>
   <div style="margin-top:14px;">
-    <button class="gbtn primary" id="btn-start-adventure">🌄 Begin the Adventure</button>
+    <button class="gbtn primary" id="btn-start-adventure">Begin the Adventure</button>
     <button class="gbtn" id="btn-back-title">Back</button>
   </div>
 </div>
 
 <!-- ================= HOW TO PLAY ================= -->
 <div id="how-panel" class="panel hidden">
-  <button class="xclose" data-close="how-panel">✕</button>
+  <button class="xclose" data-close="how-panel">X</button>
   <h2>How to Play</h2>
   <h3>Your goal</h3>
   <p>Evervale's great lantern has gone dark. Follow the gold objective at the top of the screen: help Elder Maren, gather Sunpetals, face the Slime King and the Ancient Golem, and light the Vale Lantern. Along the way: take jobs from villagers, find 20 hidden wisps, fish, cook, craft, and explore every corner.</p>
   <h3>Desktop controls</h3>
-  <p>Move: W A S D · Camera: hold right mouse and drag (or Arrow Left / Right to turn) · Jump / glide (hold in air): Space · Sprint: Shift · Dodge: C · Sword: left click or F · Heavy attack: K · Aim bow: hold right mouse or L, shoot with left click · Powers: 1/2/3 select, R cast · Big move Sunfall: T (needs full Wonder meter) · Talk / use: E · Inventory: I or Tab · Map: M · Journal: J · Pause: Esc or P</p>
+  <p>Move: W A S D · Camera: hold right mouse and drag (or Arrow Left / Right to turn); on touch screens drag to look around and pinch to zoom · Jump / glide (hold in air): Space · Sprint: Shift · Dodge: C · Sword: left click or F · Heavy attack: K · Aim bow: hold right mouse or L, shoot with left click · Powers: 1/2/3 select, R cast · Big move Sunfall: T (needs full Wonder meter) · Talk / use: E · Inventory: I or Tab · Map: M · Journal: J · Pause: Esc or P</p>
   <h3>Mobile controls</h3>
   <p>Left stick to move, drag the right side of the screen to move the camera, and use the round buttons: ATK sword, HVY heavy, JUMP, DODGE, POW casts your selected power, BIG is Sunfall, USE talks and picks things up, AIM holds your bow. Top-right icons open your pack, map, journal and pause.</p>
   <h3>Gamepad</h3>
@@ -249,7 +270,7 @@
 
 <!-- ================= SETTINGS ================= -->
 <div id="settings-panel" class="panel hidden">
-  <button class="xclose" data-close="settings-panel">✕</button>
+  <button class="xclose" data-close="settings-panel">X</button>
   <h2>Settings</h2>
   <div class="setrow"><span>Master volume</span><input type="range" id="set-master" min="0" max="1" step="0.05"></div>
   <div class="setrow"><span>Music volume</span><input type="range" id="set-music" min="0" max="1" step="0.05"></div>
@@ -267,10 +288,10 @@
 <div id="pause-panel" class="panel hidden">
   <h2>Paused</h2>
   <button class="gbtn primary" id="btn-resume">▶ Keep Playing</button><br>
-  <button class="gbtn" id="btn-save">💾 Save Now</button>
-  <button class="gbtn" id="btn-settings2">⚙️ Settings</button>
-  <button class="gbtn" id="btn-how2">❓ How to Play</button><br>
-  <button class="gbtn" id="btn-quit-title">🏠 Quit to Title</button>
+  <button class="gbtn" id="btn-save">Save Now</button>
+  <button class="gbtn" id="btn-settings2">Settings</button>
+  <button class="gbtn" id="btn-how2">How to Play</button><br>
+  <button class="gbtn" id="btn-quit-title">Quit to Title</button>
 </div>
 
 <!-- ================= DIALOGUE ================= -->
@@ -283,7 +304,7 @@
 
 <!-- ================= LORE ================= -->
 <div id="lore-popup" class="panel hidden">
-  <button class="xclose" data-close="lore-popup">✕</button>
+  <button class="xclose" data-close="lore-popup">X</button>
   <h2 id="lore-title">Lore</h2>
   <p id="lore-text"></p>
   <button class="gbtn" data-close="lore-popup">Close</button>
@@ -291,8 +312,8 @@
 
 <!-- ================= INVENTORY ================= -->
 <div id="inventory-panel" class="panel hidden">
-  <button class="xclose" data-close="inventory-panel">✕</button>
-  <h2>🎒 Your Pack</h2>
+  <button class="xclose" data-close="inventory-panel">X</button>
+  <h2>Your Pack</h2>
   <div id="inv-equip" style="font-size:14.5px; color:#ffca7a;"></div>
   <div id="inv-grid"></div>
   <div id="inv-detail">Tap an item to see what it does.</div>
@@ -300,8 +321,8 @@
 
 <!-- ================= SHOP ================= -->
 <div id="shop-panel" class="panel hidden">
-  <button class="xclose" data-close="shop-panel">✕</button>
-  <h2>🏪 Cato's General Store</h2>
+  <button class="xclose" data-close="shop-panel">X</button>
+  <h2>Cato's General Store</h2>
   <p id="shop-coins" style="color:#ffe28a;"></p>
   <div class="twocol shoplist">
     <div><h3>Buy</h3><div id="shop-buy"></div></div>
@@ -311,24 +332,24 @@
 
 <!-- ================= RECIPES ================= -->
 <div id="recipe-panel" class="panel hidden">
-  <button class="xclose" data-close="recipe-panel">✕</button>
+  <button class="xclose" data-close="recipe-panel">X</button>
   <h2 id="recipe-title">Cooking</h2>
   <div id="recipe-list"></div>
-  <button class="gbtn" id="btn-cook-challenge">🎯 Cooking Challenge (timing mini-game)</button>
+  <button class="gbtn" id="btn-cook-challenge">Cooking Challenge (timing mini-game)</button>
 </div>
 
 <!-- ================= MAP ================= -->
 <div id="map-panel" class="panel hidden">
-  <button class="xclose" data-close="map-panel">✕</button>
-  <h2>🗺️ Evervale Valley</h2>
+  <button class="xclose" data-close="map-panel">X</button>
+  <h2>Evervale Valley</h2>
   <canvas id="map-canvas" width="520" height="520"></canvas>
   <p style="font-size:13.5px; color:#bcd8ea;">Gold star = your current objective · Pale dots = unfound wisps · You are the white arrow.</p>
 </div>
 
 <!-- ================= JOURNAL ================= -->
 <div id="journal-panel" class="panel hidden">
-  <button class="xclose" data-close="journal-panel">✕</button>
-  <h2>📖 Journal</h2>
+  <button class="xclose" data-close="journal-panel">X</button>
+  <h2>Journal</h2>
   <div id="journal-content"></div>
 </div>
 
@@ -346,27 +367,27 @@
 
 <!-- ================= DICE DUEL (hidden game) ================= -->
 <div id="dice-panel" class="panel hidden">
-  <button class="xclose" data-close="dice-panel">✕</button>
-  <h2>🎲 Dice Duel - Bram's Table</h2>
+  <button class="xclose" data-close="dice-panel">X</button>
+  <h2>Dice Duel - Bram's Table</h2>
   <p>First to win 3 rounds takes the match. If you have 10 coins, they ride on the match: win and Bram pays 25, lose and the 10 are his.</p>
   <div style="display:flex; justify-content:space-around; text-align:center; margin:12px 0;">
-    <div><div style="color:#ffca7a;">YOU</div><div class="diceface" id="dice-player">🎲🎲</div><div id="dice-pscore">Rounds: 0</div></div>
-    <div><div style="color:#ffca7a;">BRAM</div><div class="diceface" id="dice-bram">🎲🎲</div><div id="dice-bscore">Rounds: 0</div></div>
+    <div><div style="color:#ffca7a;">YOU</div><div class="diceface"><img class="dieimg" id="dp1" alt=""><img class="dieimg" id="dp2" alt=""></div><div id="dice-pscore">Rounds: 0</div></div>
+    <div><div style="color:#ffca7a;">BRAM</div><div class="diceface"><img class="dieimg" id="db1" alt=""><img class="dieimg" id="db2" alt=""></div><div id="dice-bscore">Rounds: 0</div></div>
   </div>
-  <div style="text-align:center;"><button class="gbtn primary" id="btn-roll">🎲 Roll the Dice</button></div>
+  <div style="text-align:center;"><button class="gbtn primary" id="btn-roll">Roll the Dice</button></div>
   <div id="dice-log"></div>
 </div>
 
 <!-- ================= TARGET HUD ================= -->
 <div id="target-hud" class="panel hidden" style="top:12%; transform:translate(-50%,0); padding:12px 20px; text-align:center;">
-  <div id="target-info" style="font-size:17px;">🎯 Targets: 0 · Time: 30</div>
+  <div id="target-info" style="font-size:17px;">Targets: 0 · Time: 30</div>
   <div style="font-size:13px; color:#bcd8ea;">Aim with the camera, shoot with ATK / click. Esc or the button ends early.</div>
   <button class="gbtn small" id="btn-target-end">End Challenge</button>
 </div>
 
 <!-- ================= COMPLETE ================= -->
 <div id="complete-panel" class="panel hidden" style="text-align:center;">
-  <h2 style="font-size:32px;">🌟 THE LANTERN BURNS AGAIN 🌟</h2>
+  <h2 style="font-size:32px;">THE LANTERN BURNS AGAIN</h2>
   <p>You have completed the Evervale vertical slice - the valley's light is restored, and this is exactly how the full game will look and play, region after region.</p>
   <p id="complete-stats" style="color:#ffca7a;"></p>
   <button class="gbtn primary" id="btn-keep-exploring">Keep Exploring the Valley</button>
@@ -5482,85 +5503,85 @@ EV.DATA = {};
 /* ============================== ITEMS ============================== */
 /* type: weapon | bow | food | drink | material | potion | quest | gear | tool */
 EV.DATA.ITEMS = {
-  vale_sword:    { name: "Vale Sword",        type: "weapon", icon: "🗡️", price: 0,   dmg: 12, desc: "A village-forged blade. Reliable, honest steel." },
-  iron_sword:    { name: "Iron Sword",        type: "weapon", icon: "⚔️", price: 120, dmg: 18, desc: "Heavier iron blade from Rurik's forge." },
-  ember_blade:   { name: "Emberglass Blade",  type: "weapon", icon: "🔥", price: 340, dmg: 27, element: "fire", desc: "Glows faintly near lava. Hits can set enemies burning." },
-  frost_spear:   { name: "Frost Spear",       type: "weapon", icon: "❄️", price: 300, dmg: 24, element: "frost", desc: "Cold to the touch. Hits slow enemies down." },
-  ancient_blade: { name: "Ancient Blade",     type: "weapon", icon: "✨", price: 900, dmg: 40, element: "light", desc: "Recovered from the ruin. It hums near the Vale Lantern." },
-  oak_bow:       { name: "Oak Bow",           type: "bow",    icon: "🏹", price: 80,  dmg: 10, desc: "A simple hunting bow." },
-  hunter_bow:    { name: "Hunter Bow",        type: "bow",    icon: "🎯", price: 260, dmg: 17, desc: "Fenn's craftsmanship. Arrows fly straighter." },
-  arrows:        { name: "Arrows (10)",       type: "tool",   icon: "➹",  price: 15,  desc: "A bundle of ten arrows." },
-  arrow_single:  { name: "Arrow",             type: "tool",   icon: "➹",  price: 2,   desc: "A single arrow. Ammunition for bows." },
+  vale_sword:    { name: "Vale Sword",        type: "weapon", icon: "sword", tint: "#d5dbe2", price: 0,   dmg: 12, desc: "A village-forged blade. Reliable, honest steel." },
+  iron_sword:    { name: "Iron Sword",        type: "weapon", icon: "sword", tint: "#9aa7b4", price: 120, dmg: 18, desc: "Heavier iron blade from Rurik's forge." },
+  ember_blade:   { name: "Emberglass Blade",  type: "weapon", icon: "sword", tint: "#ff7a33", price: 340, dmg: 27, element: "fire", desc: "Glows faintly near lava. Hits can set enemies burning." },
+  frost_spear:   { name: "Frost Spear",       type: "weapon", icon: "spear", tint: "#8fdcff", price: 300, dmg: 24, element: "frost", desc: "Cold to the touch. Hits slow enemies down." },
+  ancient_blade: { name: "Ancient Blade",     type: "weapon", icon: "sword", tint: "#ffd94d", price: 900, dmg: 40, element: "light", desc: "Recovered from the ruin. It hums near the Vale Lantern." },
+  oak_bow:       { name: "Oak Bow",           type: "bow",    icon: "bow", tint: "#b0824a", price: 80,  dmg: 10, desc: "A simple hunting bow." },
+  hunter_bow:    { name: "Hunter Bow",        type: "bow",    icon: "bow", tint: "#7a4a26", price: 260, dmg: 17, desc: "Fenn's craftsmanship. Arrows fly straighter." },
+  arrows:        { name: "Arrows (10)",       type: "tool",   icon: "arrows", tint: "#d8c28a",  price: 15,  desc: "A bundle of ten arrows." },
+  arrow_single:  { name: "Arrow",             type: "tool",   icon: "arrows", tint: "#d8c28a",  price: 2,   desc: "A single arrow. Ammunition for bows." },
 
-  raw_fish:      { name: "River Fish (raw)",  type: "food",   icon: "🐟", price: 12,  heal: 6,  desc: "Fresh from the lake. Better cooked." },
-  grilled_fish:  { name: "Grilled River Fish",type: "food",   icon: "🍢", price: 30,  heal: 30, stamina: 20, desc: "Crispy skin, soft middle. Restores health and stamina." },
-  berry:         { name: "Sunberry",          type: "food",   icon: "🫐", price: 5,   heal: 8,  desc: "Sweet berries from meadow bushes." },
-  berry_tart:    { name: "Berry Tart",        type: "food",   icon: "🥧", price: 45,  heal: 45, stamina: 35, desc: "Lina's recipe. Famous across the valley." },
-  mushroom:      { name: "Vale Mushroom",     type: "food",   icon: "🍄", price: 7,   heal: 5,  desc: "Earthy and filling. Grows after rain." },
-  mushroom_soup: { name: "Mushroom Soup",     type: "food",   icon: "🍲", price: 38,  heal: 38, mana: 25, desc: "Warm soup that also settles the mind. Restores mana." },
-  boar_meat:     { name: "Boar Meat (raw)",   type: "food",   icon: "🥩", price: 16,  heal: 8,  desc: "Tough raw meat. Cook it first." },
-  roast_boar:    { name: "Roast Boar Skewer", type: "food",   icon: "🍖", price: 42,  heal: 42, stamina: 30, desc: "Smoky and rich. A hunter's favourite." },
-  honey:         { name: "Wild Honey",        type: "food",   icon: "🍯", price: 18,  heal: 15, mana: 10, desc: "Golden and slow-poured." },
-  honey_cake:    { name: "Honey Cake",        type: "food",   icon: "🍰", price: 50,  heal: 50, mana: 30, desc: "Baked with wild honey. A small celebration." },
-  apple:         { name: "Vale Apple",        type: "food",   icon: "🍎", price: 6,   heal: 10, desc: "Crisp and bright." },
-  golden_apple:  { name: "Golden Apple",      type: "food",   icon: "🌟", price: 150, heal: 120, desc: "One tree in the valley bears these. Rare and wonderful." },
+  raw_fish:      { name: "River Fish (raw)",  type: "food",   icon: "fish", tint: "#7cc7e8", price: 12,  heal: 6,  desc: "Fresh from the lake. Better cooked." },
+  grilled_fish:  { name: "Grilled River Fish",type: "food",   icon: "fish", tint: "#e8975a", price: 30,  heal: 30, stamina: 20, desc: "Crispy skin, soft middle. Restores health and stamina." },
+  berry:         { name: "Sunberry",          type: "food",   icon: "berry", tint: "#8a5ae8", price: 5,   heal: 8,  desc: "Sweet berries from meadow bushes." },
+  berry_tart:    { name: "Berry Tart",        type: "food",   icon: "tart", tint: "#c65a7a", price: 45,  heal: 45, stamina: 35, desc: "Lina's recipe. Famous across the valley." },
+  mushroom:      { name: "Vale Mushroom",     type: "food",   icon: "mushroom", tint: "#efe6cc", price: 7,   heal: 5,  desc: "Earthy and filling. Grows after rain." },
+  mushroom_soup: { name: "Mushroom Soup",     type: "food",   icon: "bowl", tint: "#b08954", price: 38,  heal: 38, mana: 25, desc: "Warm soup that also settles the mind. Restores mana." },
+  boar_meat:     { name: "Boar Meat (raw)",   type: "food",   icon: "meat", tint: "#c65a5a", price: 16,  heal: 8,  desc: "Tough raw meat. Cook it first." },
+  roast_boar:    { name: "Roast Boar Skewer", type: "food",   icon: "meat", tint: "#a85a32", price: 42,  heal: 42, stamina: 30, desc: "Smoky and rich. A hunter's favourite." },
+  honey:         { name: "Wild Honey",        type: "food",   icon: "honey", tint: "#f2b33d", price: 18,  heal: 15, mana: 10, desc: "Golden and slow-poured." },
+  honey_cake:    { name: "Honey Cake",        type: "food",   icon: "cake", tint: "#f2d38a", price: 50,  heal: 50, mana: 30, desc: "Baked with wild honey. A small celebration." },
+  apple:         { name: "Vale Apple",        type: "food",   icon: "apple", tint: "#d84040", price: 6,   heal: 10, desc: "Crisp and bright." },
+  golden_apple:  { name: "Golden Apple",      type: "food",   icon: "apple", tint: "#ffd94d", price: 150, heal: 120, desc: "One tree in the valley bears these. Rare and wonderful." },
 
-  health_potion: { name: "Health Potion",     type: "potion", icon: "🧪", price: 40,  heal: 60, desc: "Restores 60 health at once." },
-  mana_potion:   { name: "Mana Potion",       type: "potion", icon: "🔮", price: 40,  mana: 60, desc: "Restores 60 mana at once." },
-  stamina_tonic: { name: "Stamina Tonic",     type: "potion", icon: "⚡", price: 35,  stamina: 80, desc: "Restores 80 stamina at once." },
-  antidote:      { name: "Antidote",          type: "potion", icon: "💊", price: 25,  desc: "Cures poison and clears a bad head." },
+  health_potion: { name: "Health Potion",     type: "potion", icon: "potion", tint: "#e84a5a", price: 40,  heal: 60, desc: "Restores 60 health at once." },
+  mana_potion:   { name: "Mana Potion",       type: "potion", icon: "potion", tint: "#4a7ae8", price: 40,  mana: 60, desc: "Restores 60 mana at once." },
+  stamina_tonic: { name: "Stamina Tonic",     type: "potion", icon: "potion", tint: "#46d884", price: 35,  stamina: 80, desc: "Restores 80 stamina at once." },
+  antidote:      { name: "Antidote",          type: "potion", icon: "potion", tint: "#b48ae8", price: 25,  desc: "Cures poison and clears a bad head." },
 
-  wood:          { name: "Pinewood",          type: "material", icon: "🪵", price: 4,  desc: "Useful for crafting and camp upgrades." },
-  stone:         { name: "Riverstone",        type: "material", icon: "🪨", price: 4,  desc: "Smooth heavy stone." },
-  iron_ore:      { name: "Iron Ore",          type: "material", icon: "⛏️", price: 14, desc: "Smelts into iron at a forge." },
-  ember_shard:   { name: "Ember Shard",       type: "material", icon: "🔶", price: 30, desc: "Warm crystal from the lava fields." },
-  frost_crystal: { name: "Frost Crystal",     type: "material", icon: "🔷", price: 30, desc: "Cold crystal from the high cave." },
-  slime_gel:     { name: "Slime Gel",         type: "material", icon: "🟢", price: 8,  desc: "Bouncy and strange. Alchemists buy it." },
-  boar_hide:     { name: "Boar Hide",         type: "material", icon: "🦺", price: 12, desc: "Tough hide for gear repairs." },
-  wolf_pelt:     { name: "Wolf Pelt",         type: "material", icon: "🐺", price: 22, desc: "Warm winter pelt." },
-  crab_shell:    { name: "Crab Shell",        type: "material", icon: "🦀", price: 15, desc: "Hard shell pieces." },
-  spider_silk:   { name: "Spider Silk",       type: "material", icon: "🕸️", price: 20, desc: "Strong, light thread." },
-  golem_core:    { name: "Golem Core",        type: "material", icon: "💠", price: 90, desc: "The still-warm heart of a stone golem." },
-  wraith_essence:{ name: "Wraith Essence",    type: "material", icon: "👻", price: 45, desc: "Cold mist in a bottle shape. Handle gently." },
-  sunpetal:      { name: "Sunpetal",          type: "quest",  icon: "🌼", price: 0,  desc: "A flower that holds a drop of sunlight. The Elder asked for these." },
-  herb:          { name: "Vale Herb",         type: "material", icon: "🌿", price: 6,  desc: "Yuna uses these in almost every remedy." },
-  flour:         { name: "Flour Sack",        type: "material", icon: "🌾", price: 9,  desc: "Milled by Hans. Lina bakes with it." },
-  letter:        { name: "Sealed Letter",     type: "quest",  icon: "✉️", price: 0,  desc: "For Guard Tomas, from Captain Dara. Do not open." },
-  lantern_oil:   { name: "Lantern Oil",       type: "quest",  icon: "🏮", price: 20, desc: "Clear oil for the Vale Lantern." },
-  wonder_shard:  { name: "Wonder Shard",      type: "quest",  icon: "💎", price: 0,  desc: "A fragment of the valley's old light." },
-  fishing_rod:   { name: "Fishing Rod",       type: "tool",   icon: "🎣", price: 50, desc: "Use at the lake dock to fish." },
-  bait:          { name: "Fishing Bait",      type: "tool",   icon: "🪱", price: 5,  desc: "Wiggly. The fish approve." },
-  torch:         { name: "Torch",             type: "tool",   icon: "🔦", price: 18, desc: "Lights dark places like the cave." },
-  camp_kit:      { name: "Camp Kit",          type: "tool",   icon: "⛺", price: 60, desc: "Sets up your camp. Cook and rest there." },
-  warm_cloak:    { name: "Warm Cloak",        type: "gear",   icon: "🧥", price: 110, defense: 4, desc: "Woven by Ilsa. Reduces damage taken." },
-  swift_boots:   { name: "Swift Boots",       type: "gear",   icon: "🥾", price: 130, speedBonus: 0.12, desc: "Light boots. Move 12% faster." },
-  vale_charm:    { name: "Vale Charm",        type: "gear",   icon: "🍀", price: 160, luckBonus: 0.15, desc: "A lucky charm carved from ruin stone." },
-  cat_treat:     { name: "Cat Treat",         type: "quest",  icon: "🐾", price: 8,  desc: "Irresistible to exactly one lost cat." }
+  wood:          { name: "Pinewood",          type: "material", icon: "logs", tint: "#9a6b40", price: 4,  desc: "Useful for crafting and camp upgrades." },
+  stone:         { name: "Riverstone",        type: "material", icon: "rock", tint: "#9a958c", price: 4,  desc: "Smooth heavy stone." },
+  iron_ore:      { name: "Iron Ore",          type: "material", icon: "ore", tint: "#8a7460", price: 14, desc: "Smelts into iron at a forge." },
+  ember_shard:   { name: "Ember Shard",       type: "material", icon: "shard", tint: "#ff7a33", price: 30, desc: "Warm crystal from the lava fields." },
+  frost_crystal: { name: "Frost Crystal",     type: "material", icon: "shard", tint: "#7ad7ff", price: 30, desc: "Cold crystal from the high cave." },
+  slime_gel:     { name: "Slime Gel",         type: "material", icon: "gel", tint: "#6ae87a", price: 8,  desc: "Bouncy and strange. Alchemists buy it." },
+  boar_hide:     { name: "Boar Hide",         type: "material", icon: "hide", tint: "#9a6b40", price: 12, desc: "Tough hide for gear repairs." },
+  wolf_pelt:     { name: "Wolf Pelt",         type: "material", icon: "hide", tint: "#707880", price: 22, desc: "Warm winter pelt." },
+  crab_shell:    { name: "Crab Shell",        type: "material", icon: "shell", tint: "#e87a4a", price: 15, desc: "Hard shell pieces." },
+  spider_silk:   { name: "Spider Silk",       type: "material", icon: "silk", tint: "#eef0f6", price: 20, desc: "Strong, light thread." },
+  golem_core:    { name: "Golem Core",        type: "material", icon: "core", tint: "#7ad7ff", price: 90, desc: "The still-warm heart of a stone golem." },
+  wraith_essence:{ name: "Wraith Essence",    type: "material", icon: "essence", tint: "#b48ae8", price: 45, desc: "Cold mist in a bottle shape. Handle gently." },
+  sunpetal:      { name: "Sunpetal",          type: "quest",  icon: "flower", tint: "#ffd94d", price: 0,  desc: "A flower that holds a drop of sunlight. The Elder asked for these." },
+  herb:          { name: "Vale Herb",         type: "material", icon: "herb", tint: "#54c864", price: 6,  desc: "Yuna uses these in almost every remedy." },
+  flour:         { name: "Flour Sack",        type: "material", icon: "sack", tint: "#eadfc2", price: 9,  desc: "Milled by Hans. Lina bakes with it." },
+  letter:        { name: "Sealed Letter",     type: "quest",  icon: "letter", tint: "#f2ead8", price: 0,  desc: "For Guard Tomas, from Captain Dara. Do not open." },
+  lantern_oil:   { name: "Lantern Oil",       type: "quest",  icon: "lamp", tint: "#f2b33d", price: 20, desc: "Clear oil for the Vale Lantern." },
+  wonder_shard:  { name: "Wonder Shard",      type: "quest",  icon: "gem", tint: "#ffd94d", price: 0,  desc: "A fragment of the valley's old light." },
+  fishing_rod:   { name: "Fishing Rod",       type: "tool",   icon: "rod", tint: "#9a6b40", price: 50, desc: "Use at the lake dock to fish." },
+  bait:          { name: "Fishing Bait",      type: "tool",   icon: "worm", tint: "#c88a6a", price: 5,  desc: "Wiggly. The fish approve." },
+  torch:         { name: "Torch",             type: "tool",   icon: "torch", tint: "#ff9a3c", price: 18, desc: "Lights dark places like the cave." },
+  camp_kit:      { name: "Camp Kit",          type: "tool",   icon: "tent", tint: "#5f9a5f", price: 60, desc: "Sets up your camp. Cook and rest there." },
+  warm_cloak:    { name: "Warm Cloak",        type: "gear",   icon: "cloak", tint: "#8a5aa8", price: 110, defense: 4, desc: "Woven by Ilsa. Reduces damage taken." },
+  swift_boots:   { name: "Swift Boots",       type: "gear",   icon: "boots", tint: "#5a7ac8", price: 130, speedBonus: 0.12, desc: "Light boots. Move 12% faster." },
+  vale_charm:    { name: "Vale Charm",        type: "gear",   icon: "charm", tint: "#54c864", price: 160, luckBonus: 0.15, desc: "A lucky charm carved from ruin stone." },
+  cat_treat:     { name: "Cat Treat",         type: "quest",  icon: "paw", tint: "#e8a0bf", price: 8,  desc: "Irresistible to exactly one lost cat." }
 };
 // Item use effects resolve in systems; prices: buy = price, sell = floor(price * 0.55).
 
 /* ============================== POWERS ============================== */
 EV.DATA.POWERS = {
   ember: {
-    name: "Ember Bolt", icon: "🔥", color: 0xff7a33,
+    name: "Ember Bolt", icon: "flame", color: 0xff7a33,
     params: { manaCost: 12, damage: 22, cooldown: 0.55, projectileSpeed: 34, projectileGravity: 0,
       burnChance: 0.35, burnDamagePerSecond: 4, burnDuration: 3, range: 42, radius: 0.35,
       castAnimTime: 0.32, trailParticles: 6, lightIntensity: 1.6, lightDistance: 7 }
   },
   frost: {
-    name: "Frost Shard", icon: "❄️", color: 0x7ad7ff,
+    name: "Frost Shard", icon: "snow", color: 0x7ad7ff,
     params: { manaCost: 14, damage: 18, cooldown: 0.7, projectileSpeed: 38, projectileGravity: 0,
       slowFactor: 0.45, slowDuration: 2.5, freezeChance: 0.12, freezeDuration: 0.9, range: 46, radius: 0.3,
       castAnimTime: 0.3, trailParticles: 5, lightIntensity: 1.2, lightDistance: 6 }
   },
   gale: {
-    name: "Gale Burst", icon: "🌪️", color: 0xa8ffb0,
+    name: "Gale Burst", icon: "wind", color: 0xa8ffb0,
     params: { manaCost: 16, damage: 14, cooldown: 1.1, radius: 6.5, knockback: 15, upwardPop: 4,
       castAnimTime: 0.4, ringExpandTime: 0.45, selfPushBack: 2, clearsProjectiles: true,
       staminaRefundOnHit: 4, lightIntensity: 0.9, lightDistance: 8 }
   },
   sunfall: {
-    name: "Sunfall (Big Move)", icon: "☀️", color: 0xffd94d,
+    name: "Sunfall (Big Move)", icon: "sun", color: 0xffd94d,
     params: { meterCost: 100, damage: 95, cooldown: 2.0, radius: 11, channelTime: 0.8,
       knockback: 10, lightFlashIntensity: 5, shakeAmount: 0.55, hitStop: 0.14,
       ringExpandTime: 0.8, pillarHeight: 16, burnDuration: 2, healsCompanion: 20 }
@@ -5611,12 +5632,12 @@ EV.DATA.ENEMIES = {
     params: { hp: 60, damage: 15, speed: 3.4, aggroRange: 15, attackRange: 2.1, attackCooldown: 1.5,
       phaseChance: 0.25, chillSlowFactor: 0.7, coins: [9, 18], wonderMeterGain: 14,
       drops: [["wraith_essence", 0.45], ["mana_potion", 0.2]], knockResist: 0.35, xpShardChance: 0.12 } }),
-  slimeking: enemyDef({ name: "👑 Slime King", behaviour: "slimeking", scale: 2.6, boss: true,
+  slimeking: enemyDef({ name: "Slime King", behaviour: "slimeking", scale: 2.6, boss: true,
     params: { hp: 340, damage: 16, speed: 1.9, aggroRange: 20, attackRange: 3.4, attackCooldown: 1.6,
       hopPower: 8, squashAmount: 0.4, splitAtHalf: true, slamRadius: 4.2, slamDamage: 20,
       coins: [80, 120], wonderMeterGain: 40,
       drops: [["golden_apple", 1.0], ["slime_gel", 1.0]], knockResist: 0.85, xpShardChance: 1.0 } }),
-  ancientgolem: enemyDef({ name: "🗿 Ancient Golem", behaviour: "ancientgolem", scale: 2.2, boss: true,
+  ancientgolem: enemyDef({ name: "Ancient Golem", behaviour: "ancientgolem", scale: 2.2, boss: true,
     params: { hp: 460, damage: 22, speed: 1.3, aggroRange: 22, attackRange: 3.8, attackCooldown: 2.6,
       slamRadius: 5.0, slamDamage: 28, rockThrowDamage: 16, rockThrowRange: 16, phaseTwoAt: 0.5,
       coins: [120, 180], wonderMeterGain: 50,
@@ -5855,6 +5876,56 @@ EV.World = (function () {
     return new THREE.MeshStandardMaterial(Object.assign({ color, roughness: 0.9, metalness: 0.0 }, opts || {}));
   }
 
+  /* ---------------- Code-drawn surface textures ----------------
+     Detail pass: every surface gets a drawn texture (grass blades,
+     plaster, wood planks, roof shingles, cracked stone, dirt) so the
+     world does not read as flat colour. All drawn in code at startup
+     with a fixed seed - the same world every load. */
+  const TEX = {};
+  function buildTextures() {
+    let seed = 987654321;
+    const R = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    function make(size, painter, rx, ry) {
+      const c = document.createElement("canvas"); c.width = c.height = size;
+      painter(c.getContext("2d"), size);
+      const t = new THREE.CanvasTexture(c);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rx || 1, ry || 1); t.anisotropy = 4;
+      return t;
+    }
+    function speckle(g, S, flecks, n, aMax) {
+      for (let i = 0; i < n; i++) { g.fillStyle = flecks[(R() * flecks.length) | 0]; g.globalAlpha = 0.1 + R() * aMax; const r = 1 + R() * 3; g.fillRect(R() * S, R() * S, r, r); }
+      g.globalAlpha = 1;
+    }
+    TEX.grass = make(256, (g, S) => {
+      g.fillStyle = "#dcebc9"; g.fillRect(0, 0, S, S);
+      speckle(g, S, ["#c2daa6", "#eef6dd", "#b3cf92"], 2400, 0.3);
+      g.strokeStyle = "#a9c786"; g.lineWidth = 1.4;
+      for (let i = 0; i < 320; i++) { g.globalAlpha = 0.25 + R() * 0.35; const x = R() * S, y = R() * S; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R() * 4 - 2), y - 3 - R() * 4); g.stroke(); }
+      g.globalAlpha = 1;
+    }, 110, 110);
+    TEX.plaster = make(256, (g, S) => { g.fillStyle = "#f4eddc"; g.fillRect(0, 0, S, S); speckle(g, S, ["#e4d7bc", "#fbf6ea", "#dacaa9"], 1500, 0.22); }, 1, 1);
+    TEX.wood = make(256, (g, S) => {
+      g.fillStyle = "#bb8a56"; g.fillRect(0, 0, S, S);
+      for (let p = 0; p < 4; p++) { g.fillStyle = "rgba(70,45,20,0.5)"; g.fillRect(0, p * 64, S, 3); }
+      g.strokeStyle = "rgba(90,60,30,0.32)"; g.lineWidth = 1.6;
+      for (let i = 0; i < 42; i++) { const y = R() * S; g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(S * 0.3, y + 3, S * 0.6, y - 3, S, y); g.stroke(); }
+      speckle(g, S, ["#a5763f", "#cfa76e"], 300, 0.2);
+    }, 1, 1);
+    TEX.roof = make(256, (g, S) => {
+      g.fillStyle = "#d3c0aa"; g.fillRect(0, 0, S, S);
+      g.strokeStyle = "rgba(84,58,40,0.55)"; g.lineWidth = 3;
+      for (let row = 0; row < 6; row++) for (let col = 0; col < 7; col++) { g.beginPath(); g.arc(col * 42 + (row % 2) * 21, row * 44 + 40, 20, 0.15, Math.PI - 0.15); g.stroke(); }
+      speckle(g, S, ["#bfae97", "#e6d7c2"], 500, 0.2);
+    }, 2, 2);
+    TEX.stone = make(256, (g, S) => {
+      g.fillStyle = "#d2cfc7"; g.fillRect(0, 0, S, S);
+      speckle(g, S, ["#bab6ab", "#e7e4db", "#a3a096"], 1900, 0.28);
+      g.strokeStyle = "rgba(70,66,58,0.45)"; g.lineWidth = 2;
+      for (let i = 0; i < 7; i++) { let x = R() * S, y = R() * S; g.beginPath(); g.moveTo(x, y); for (let j = 0; j < 4; j++) { x += R() * 30 - 15; y += R() * 30; g.lineTo(x, y); } g.stroke(); }
+    }, 3, 3);
+    TEX.dirt = make(256, (g, S) => { g.fillStyle = "#d3ba8d"; g.fillRect(0, 0, S, S); speckle(g, S, ["#bd9f6e", "#e6d0a4", "#ac8c5e"], 2200, 0.3); }, 8, 8);
+  }
+
   /* ---------------- Signs with real text (canvas textures) ---------------- */
   function makeSignTexture(text) {
     const c = document.createElement("canvas"); c.width = 512; c.height = 160;
@@ -5886,10 +5957,10 @@ EV.World = (function () {
     opts = opts || {};
     const grp = new THREE.Group();
     const y = getHeight(x, z);
-    const walls = new THREE.Mesh(new THREE.BoxGeometry(w, hgt, d), std(wallColor));
+    const walls = new THREE.Mesh(new THREE.BoxGeometry(w, hgt, d), std(wallColor, { map: TEX.plaster }));
     walls.position.y = hgt / 2; walls.castShadow = true; walls.receiveShadow = true; grp.add(walls);
     // Roof: two sloped boxes forming a gable.
-    const roofMat = std(roofColor);
+    const roofMat = std(roofColor, { map: TEX.roof });
     const roofGeo = new THREE.BoxGeometry(w * 0.78, 0.18, d + 0.9);
     const r1 = new THREE.Mesh(roofGeo, roofMat); r1.position.set(-w * 0.21, hgt + hgt * 0.24, 0); r1.rotation.z = 0.62; r1.castShadow = true; grp.add(r1);
     const r2 = new THREE.Mesh(roofGeo, roofMat); r2.position.set(w * 0.21, hgt + hgt * 0.24, 0); r2.rotation.z = -0.62; r2.castShadow = true; grp.add(r2);
@@ -5898,7 +5969,7 @@ EV.World = (function () {
     // Door on a pivot so it can swing open (animated state).
     const doorPivot = new THREE.Group();
     doorPivot.position.set(w * 0.22, 0, d / 2 + 0.03);
-    const door = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.9, 0.09), lam(0x6e4a26));
+    const door = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.9, 0.09), std(0xa8825c, { map: TEX.wood }));
     door.position.set(-0.5, 0.95, 0); door.castShadow = true; doorPivot.add(door);
     const knob = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), lam(0xd8b34a, { emissive: 0x554411 }));
     knob.position.set(-0.88, 0.95, 0.09); doorPivot.add(knob);
@@ -6204,7 +6275,7 @@ EV.World = (function () {
 
   function buildRuin() {
     const rx = P.ruinX, rz = P.ruinZ, ry = getHeight(rx, rz);
-    const stone = std(0x9a958c), darkStone = std(0x7d786f);
+    const stone = std(0xbdbab2, { map: TEX.stone }), darkStone = std(0x8f8b82, { map: TEX.stone });
     // Terrace platform, on a deep stone foundation so its edges read as a
     // built structure even where the hill falls away.
     const found = new THREE.Mesh(new THREE.BoxGeometry(29, 9, 25), darkStone);
@@ -6321,7 +6392,7 @@ EV.World = (function () {
     const bx = riverCenterX(-24), bz = -24;
     const bridge = new THREE.Group();
     for (let i = 0; i < 7; i++) {
-      const plank = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.12, 3.4), lam(0x7a5a34));
+      const plank = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.12, 3.4), std(0xd8b98c, { map: TEX.wood }));
       plank.position.set(-3.3 + i * 1.1, 0, 0); bridge.add(plank);
     }
     for (let s = -1; s <= 1; s += 2) {
@@ -6336,6 +6407,90 @@ EV.World = (function () {
     scene.add(bridge);
     SPOTS.bridge = { x: bx, z: bz };
     SPOTS.bridgeY = P.waterLevel + 0.62;
+  }
+
+  /* ---------------- Detail props: lamps, fences, barrels, path stones ----------------
+     Hand-placed set dressing around the places the player actually
+     walks - this is what stops the world reading as empty and plain. */
+  function buildProps() {
+    let seed = 424242;
+    const R = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    const woodMat = std(0xd8b98c, { map: TEX.wood });
+    const stoneMat = std(0xbdbab2, { map: TEX.stone });
+    // Lamp posts (glass glows at night via userData.lampMat).
+    function lamp(x, z) {
+      const grp = new THREE.Group(); const y = getHeight(x, z);
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 3.1, 6), lam(0x3a3f4a));
+      pole.position.y = 1.55; pole.castShadow = true; grp.add(pole);
+      const lampMat = new THREE.MeshLambertMaterial({ color: 0xffe2a8, emissive: 0x000000 });
+      const glass = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.42, 0.36), lampMat);
+      glass.position.y = 3.2; grp.add(glass);
+      const cap = new THREE.Mesh(new THREE.ConeGeometry(0.36, 0.3, 4), lam(0x2e3238));
+      cap.position.y = 3.55; cap.rotation.y = Math.PI / 4; grp.add(cap);
+      grp.userData.lampMat = lampMat;
+      grp.position.set(x, y, z); scene.add(grp);
+      EV.G.obstacles.push({ x, z, r: 0.3 });
+    }
+    const vx = P.villageX, vz = P.villageZ;
+    lamp(vx + 6, vz - 6); lamp(vx - 6, vz - 6); lamp(vx + 6, vz + 7); lamp(vx - 6, vz + 7);
+    lamp(vx + 4.5, vz + 9.5); lamp(17, 57);
+    if (SPOTS.bridge) { lamp(SPOTS.bridge.x - 4.6, SPOTS.bridge.z); lamp(SPOTS.bridge.x + 4.6, SPOTS.bridge.z); }
+    // Fences: posts + two rails along a run.
+    function fenceRun(x1, z1, x2, z2) {
+      const dx = x2 - x1, dz = z2 - z1, len = Math.sqrt(dx * dx + dz * dz), ang = Math.atan2(dx, dz);
+      const grp = new THREE.Group();
+      const n = Math.max(2, Math.round(len / 1.8));
+      for (let i = 0; i <= n; i++) {
+        const px = x1 + dx * i / n, pz = z1 + dz * i / n;
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.14, 1.05, 0.14), woodMat);
+        post.position.set(px, getHeight(px, pz) + 0.5, pz); post.castShadow = true; grp.add(post);
+        EV.G.obstacles.push({ x: px, z: pz, r: 0.55 });
+      }
+      for (const ry of [0.45, 0.85]) {
+        const rail = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.09, len), woodMat);
+        const mx = (x1 + x2) / 2, mz = (z1 + z2) / 2;
+        rail.position.set(mx, getHeight(mx, mz) + ry, mz); rail.rotation.y = ang; grp.add(rail);
+      }
+      scene.add(grp);
+    }
+    fenceRun(vx - 15, vz - 7, vx - 15, vz + 8);
+    fenceRun(vx + 15.5, vz - 7, vx + 15.5, vz + 8);
+    fenceRun(vx - 15, vz + 8, vx - 6, vz + 12);
+    // Barrels and crates near the shop, inn and camp.
+    function barrel(x, z) {
+      const grp = new THREE.Group(); const y = getHeight(x, z);
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.38, 0.95, 10), woodMat);
+      body.position.y = 0.48; body.castShadow = true; grp.add(body);
+      for (const by of [0.2, 0.76]) {
+        const band = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.035, 6, 14), lam(0x3a3f4a));
+        band.rotation.x = Math.PI / 2; band.position.y = by; grp.add(band);
+      }
+      grp.position.set(x, y, z); scene.add(grp);
+      EV.G.obstacles.push({ x, z, r: 0.5 });
+    }
+    function crate(x, z, s, rot) {
+      const y = getHeight(x, z);
+      const box = new THREE.Mesh(new THREE.BoxGeometry(s, s, s), woodMat);
+      box.position.set(x, y + s / 2, z); box.rotation.y = rot || 0; box.castShadow = true; scene.add(box);
+      EV.G.obstacles.push({ x, z, r: s * 0.62 });
+      return y + s;
+    }
+    barrel(vx + 9.6, vz - 3.4); barrel(vx + 10.4, vz - 2.2); barrel(vx + 5.4, vz + 10.6);
+    barrel(18.6, 58.6);
+    const cy = crate(vx + 9.8, vz + 1.8, 0.95, 0.4); crate(vx - 9.8, vz - 2.6, 0.95, -0.3);
+    const top = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.62, 0.62), woodMat);
+    top.position.set(vx + 9.8, cy + 0.31, vz + 1.8); top.rotation.y = 0.9; top.castShadow = true; scene.add(top);
+    // Stepping-stone path: village square to the lake dock.
+    const path = [[vx, vz - 2], [-12, 20], [-24, 8], [-34, -2], [-40, -8]];
+    for (let sgi = 0; sgi < path.length - 1; sgi++) {
+      const [ax, az] = path[sgi], [bx, bz] = path[sgi + 1];
+      const steps = Math.floor(EV.dist2D(ax, az, bx, bz) / 2.1);
+      for (let i = 1; i < steps; i++) {
+        const t = i / steps, x = ax + (bx - ax) * t + (R() - 0.5) * 0.7, z = az + (bz - az) * t + (R() - 0.5) * 0.7;
+        const st = new THREE.Mesh(new THREE.CylinderGeometry(0.5 + R() * 0.3, 0.55 + R() * 0.3, 0.09, 8), stoneMat);
+        st.position.set(x, getHeight(x, z) + 0.05, z); st.receiveShadow = true; scene.add(st);
+      }
+    }
   }
 
   function buildCamp() {
@@ -6523,6 +6678,7 @@ EV.World = (function () {
   /* ---------------- Build everything ---------------- */
   function init(scn, sun, hemi) {
     scene = scn; dyn.sunLight = sun; dyn.hemi = hemi;
+    buildTextures();
     // Terrain mesh with vertex colours.
     const geo = new THREE.PlaneGeometry(P.size, P.size, P.segments, P.segments);
     geo.rotateX(-Math.PI / 2);
@@ -6551,7 +6707,7 @@ EV.World = (function () {
     }
     geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     geo.computeVertexNormals();
-    const terrain = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true }));
+    const terrain = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true, map: TEX.grass }));
     terrain.receiveShadow = true;
     scene.add(terrain);
     // Water plane.
@@ -6566,6 +6722,7 @@ EV.World = (function () {
     buildRuin();
     buildLava();
     buildWaterfallAndBridge();
+    buildProps();
     scatterInstanced();
     buildWisps();
     buildWeather();
@@ -7880,7 +8037,7 @@ EV.Entities = (function () {
         this.barkT -= dt;
         if (this.barkT <= 0) {
           this.barkT = EV.rand(35, 70);
-          if (Math.random() < 0.5 && EV.UI) EV.UI.toast("🐶 Pip: " + EV.RNG.pick(["Woof! (Something smells interesting.)", "Bark bark! (I am helping.)", "Yip! (This way smells like adventure.)"]));
+          if (Math.random() < 0.5 && EV.UI) EV.UI.toast("Pip: " + EV.RNG.pick(["Woof! (Something smells interesting.)", "Bark bark! (I am helping.)", "Yip! (This way smells like adventure.)"]));
         }
       } };
     c.pos.set(EV.World.SPOTS.spawn.x + 1.5, 0, EV.World.SPOTS.spawn.z + 1);
@@ -8017,9 +8174,9 @@ EV.Systems = (function () {
       const q = EV.DATA.MAIN_QUEST[S.mainStep];
       let extra = "";
       if (q.item) extra = " (" + Math.min(player() ? player().countItem(q.item) : 0, q.count) + "/" + q.count + ")";
-      EV.UI.setObjective("⭐ " + q.title + " - " + q.desc + extra);
+      EV.UI.setObjective(q.title + " - " + q.desc + extra);
     } else {
-      EV.UI.setObjective("🌟 The Vale Lantern burns again! Explore freely - wisps found: " +
+      EV.UI.setObjective("The Vale Lantern burns again! Explore freely - wisps found: " +
         Object.keys(EV.G.wispsCollected).length + "/20. Stage 2 awaits your verdict.");
     }
     EV.UI.renderJournal();
@@ -8028,7 +8185,7 @@ EV.Systems = (function () {
     S.mainStep++;
     EV.Audio.sfx("questDone");
     if (S.mainStep < EV.DATA.MAIN_QUEST.length) {
-      EV.UI.toast("📜 New objective: " + EV.DATA.MAIN_QUEST[S.mainStep].title);
+      EV.UI.toast("New objective: " + EV.DATA.MAIN_QUEST[S.mainStep].title);
     }
     refreshObjective();
     save();
@@ -8039,7 +8196,7 @@ EV.Systems = (function () {
     const p = player(); if (!p) return;
     p.addItem(itemId, n || 1);
     const def = EV.DATA.ITEMS[itemId];
-    EV.UI.toast((def ? def.icon + " " : "") + "Got " + (def ? def.name : itemId) + ((n || 1) > 1 ? " x" + n : ""));
+    EV.UI.toast("Got " + (def ? def.name : itemId) + ((n || 1) > 1 ? " x" + n : ""));
     EV.Audio.sfx("pickup");
   }
   const dropMeshGeo = new THREE.SphereGeometry(0.21, 10, 8);
@@ -8075,7 +8232,7 @@ EV.Systems = (function () {
     EV.G.chestsOpened[chest.id] = true;
     EV.Audio.sfx("chest");
     const p = player();
-    if (loot.coins) { p.addCoins(loot.coins); EV.UI.toast("💰 Found " + loot.coins + " coins in the chest!"); }
+    if (loot.coins) { p.addCoins(loot.coins); EV.UI.toast("Found " + loot.coins + " coins in the chest!"); }
     if (loot.item) addItemToast(loot.item, loot.count || 1);
     EV.Entities.burst(chest.grp.position.clone().setY(chest.grp.position.y + 1), 0xffd94d, 18, 3.4, 0.6, -2);
     save();
@@ -8118,14 +8275,14 @@ EV.Systems = (function () {
   /* ---------------- Quests: kills & jobs ---------------- */
   function onEnemyKilled(e) {
     S.kills[e.kind] = (S.kills[e.kind] || 0) + 1;
-    if (e.kind === "slimeking" && S.mainStep === 2) { EV.UI.toast("👑 The Slime King is defeated!"); advanceMain(); }
-    if (e.kind === "ancientgolem" && S.mainStep === 4) { EV.UI.toast("🗿 The Ancient Golem rests. The lantern terrace is open."); advanceMain(); }
+    if (e.kind === "slimeking" && S.mainStep === 2) { EV.UI.toast("The Slime King is defeated!"); advanceMain(); }
+    if (e.kind === "ancientgolem" && S.mainStep === 4) { EV.UI.toast("The Ancient Golem rests. The lantern terrace is open."); advanceMain(); }
     // Kill-job tracking (Fenn's wolves).
     for (const n of EV.DATA.NPCS) {
       if (!n.job || n.job.type !== "kill") continue;
       if (S.jobs[n.job.id] === "active" && e.kind === n.job.enemy) {
         const c = Math.min(S.kills[e.kind] || 0, n.job.count);
-        EV.UI.toast("🎯 " + n.job.title + ": " + c + "/" + n.job.count + " - return to " + n.name + " when done.");
+        EV.UI.toast(n.job.title + ": " + c + "/" + n.job.count + " - return to " + n.name + " when done.");
       }
     }
     EV.Bus.emit("hud");
@@ -8150,7 +8307,7 @@ EV.Systems = (function () {
     if (job.type === "deliver") addItemSilent(job.item, 1);
     if (job.type === "special" && job.special === "cat") addItemSilent("cat_treat", 1);
     EV.Audio.sfx("questDone");
-    EV.UI.toast("📜 Job accepted: " + job.title);
+    EV.UI.toast("Job accepted: " + job.title);
     EV.UI.renderJournal();
     save();
   }
@@ -8164,7 +8321,7 @@ EV.Systems = (function () {
     if (job.rewardCoins) p.addCoins(job.rewardCoins);
     if (job.rewardItem) addItemToast(job.rewardItem, job.rewardCount || 1);
     EV.Audio.sfx("questDone");
-    EV.UI.toast("✅ Job complete: " + job.title + (job.rewardCoins ? " (+" + job.rewardCoins + " coins)" : ""));
+    EV.UI.toast("Job complete: " + job.title + (job.rewardCoins ? " (+" + job.rewardCoins + " coins)" : ""));
     EV.UI.renderJournal();
     save();
   }
@@ -8257,7 +8414,7 @@ EV.Systems = (function () {
     p.hp = p.hpMax; p.stamina = p.staminaMax; p.mana = p.manaMax;
     for (const k in p.statuses) delete p.statuses[k];
     EV.Audio.sfx("lantern");
-    EV.UI.toast("☀️ You rest until morning. Fully healed.");
+    EV.UI.toast("You rest until morning. Fully healed.");
     EV.UI.fadeBlink();
     save();
   }
@@ -8269,7 +8426,7 @@ EV.Systems = (function () {
     const sp = EV.World.SPOTS.camp;
     teleportPlayer(sp.x + 2, sp.z + 2, false);
     EV.G.mode = "play";
-    EV.UI.toast("💫 The valley's light carries you back to camp." + (penalty > 0 ? " You dropped " + penalty + " coins on the way." : ""));
+    EV.UI.toast("The valley's light carries you back to camp." + (penalty > 0 ? " You dropped " + penalty + " coins on the way." : ""));
     EV.Audio.setSituation("explore");
     save();
   }
@@ -8341,7 +8498,10 @@ EV.Systems = (function () {
     const winEmissive = EV.isNight() ? 0xffb45e : 0x000000;
     if (updateDayNight._lastWin !== winEmissive) {
       updateDayNight._lastWin = winEmissive;
-      G.scene.traverse((m) => { if (m.userData && m.userData.windowMat) m.userData.windowMat.emissive.setHex(winEmissive); });
+      G.scene.traverse((m) => {
+        if (m.userData && m.userData.windowMat) m.userData.windowMat.emissive.setHex(winEmissive);
+        if (m.userData && m.userData.lampMat) m.userData.lampMat.emissive.setHex(EV.isNight() ? 0xff9a3c : 0x000000);
+      });
     }
     // Weather director.
     G.weatherTimer -= dt;
@@ -8352,7 +8512,7 @@ EV.Systems = (function () {
       if (next !== G.weather) {
         G.weather = next;
         EV.Audio.setWeatherAudio(next);
-        EV.UI.toast("🌦️ Weather: " + next[0].toUpperCase() + next.slice(1));
+        EV.UI.toast("Weather: " + next[0].toUpperCase() + next.slice(1));
       }
     }
     if (G.weather === "storm") {
@@ -8424,9 +8584,9 @@ EV.Systems = (function () {
         EV.Audio.sfx("wisp"); EV.Audio.sfx("secret");
         const n = Object.keys(EV.G.wispsCollected).length;
         EV.Entities.burst(w.mesh.position, 0xaef2ff, 20, 4, 0.7, -1);
-        EV.UI.toast("✨ Wisp found! " + n + "/20 - " + w.hint);
-        if (n === 10) { addItemToast("vale_charm", 1); EV.UI.toast("🍀 Half the wisps gathered - the valley gifts you a Vale Charm!"); }
-        if (n === 20) { addItemToast("golden_apple", 1); EV.UI.toast("🌟 ALL 20 WISPS! The old blessing wakes - a Golden Apple appears in your pack."); }
+        EV.UI.toast("Wisp found! " + n + "/20 - " + w.hint);
+        if (n === 10) { addItemToast("vale_charm", 1); EV.UI.toast("Half the wisps gathered - the valley gifts you a Vale Charm!"); }
+        if (n === 20) { addItemToast("golden_apple", 1); EV.UI.toast("ALL 20 WISPS! The old blessing wakes - a Golden Apple appears in your pack."); }
         refreshObjective();
         save();
       }
@@ -8437,7 +8597,7 @@ EV.Systems = (function () {
         n.taken = true; n.timer = n.respawn; n.grp.visible = false;
         addItemToast(n.item, 1);
         if (n.item === "sunpetal" && S.mainStep === 1 && p.countItem("sunpetal") >= 3) {
-          EV.UI.toast("🌼 That is 3 Sunpetals! Now face the Slime King in the north-west woods.");
+          EV.UI.toast("That is 3 Sunpetals! Now face the Slime King in the north-west woods.");
           advanceMain();
         }
         save();
@@ -8567,17 +8727,36 @@ EV.Input = (function () {
     });
     canvas.addEventListener("wheel", function (ev) { zoomDelta += ev.deltaY * 0.01; ev.preventDefault(); }, { passive: false });
     canvas.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
-    // Touch camera drag: any touch that starts on the right half of the canvas orbits.
+    // Touch camera: one finger on the right half orbits; two fingers
+    // pinch to zoom (player feedback: camera control on mobile).
     let camTouch = null;
+    const camTouches = new Map();
+    let pinchDist = 0;
+    function twoTouchDist() {
+      const pts = [...camTouches.values()];
+      if (pts.length < 2) return 0;
+      return Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    }
     canvas.addEventListener("touchstart", function (ev) {
       EV.Audio.resume();
       for (const t of ev.changedTouches) {
-        if (t.clientX > window.innerWidth * 0.42 && camTouch === null) {
-          camTouch = { id: t.identifier, x: t.clientX, y: t.clientY };
+        if (t.clientX > window.innerWidth * 0.42) {
+          camTouches.set(t.identifier, { x: t.clientX, y: t.clientY });
+          if (camTouch === null) camTouch = { id: t.identifier, x: t.clientX, y: t.clientY };
         }
       }
+      if (camTouches.size === 2) pinchDist = twoTouchDist();
     }, { passive: true });
     canvas.addEventListener("touchmove", function (ev) {
+      for (const t of ev.changedTouches) {
+        if (camTouches.has(t.identifier)) camTouches.set(t.identifier, { x: t.clientX, y: t.clientY });
+      }
+      if (camTouches.size === 2) {
+        const nd = twoTouchDist();
+        if (pinchDist > 0 && nd > 0) zoomDelta += (pinchDist - nd) * 0.03;
+        pinchDist = nd;
+        return; // no orbiting while pinching
+      }
       if (!camTouch) return;
       for (const t of ev.changedTouches) {
         if (t.identifier === camTouch.id) {
@@ -8588,7 +8767,11 @@ EV.Input = (function () {
       }
     }, { passive: true });
     canvas.addEventListener("touchend", function (ev) {
-      for (const t of ev.changedTouches) if (camTouch && t.identifier === camTouch.id) camTouch = null;
+      for (const t of ev.changedTouches) {
+        camTouches.delete(t.identifier);
+        if (camTouch && t.identifier === camTouch.id) camTouch = null;
+      }
+      if (camTouches.size < 2) pinchDist = 0;
     });
   }
 
@@ -8765,6 +8948,102 @@ EV.UI = (function () {
     });
   }
 
+  /* ---------------- Custom drawn icons (all original, drawn in code) ----------------
+     Every icon in the game is drawn here on a small canvas - no emoji,
+     no image files. Item icons use (type, tint) pairs from the data. */
+  const Icons = {
+    cache: {},
+    draw(type, tint) {
+      const key = type + "|" + (tint || "");
+      if (this.cache[key]) return this.cache[key];
+      const c = document.createElement("canvas"); c.width = c.height = 96;
+      const g = c.getContext("2d");
+      const T = tint || "#e8e8e8", O = "#26262e";
+      g.lineWidth = 5; g.lineJoin = "round"; g.lineCap = "round";
+      const P = (pts, fill, close) => { g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); if (close) g.closePath(); if (fill) { g.fillStyle = fill; g.fill(); } g.strokeStyle = O; g.stroke(); };
+      const C = (x, y, r, fill) => { g.beginPath(); g.arc(x, y, r, 0, 7); if (fill) { g.fillStyle = fill; g.fill(); } g.strokeStyle = O; g.stroke(); };
+      const F = (x, y, r, fill) => { g.beginPath(); g.arc(x, y, r, 0, 7); g.fillStyle = fill; g.fill(); };
+      const L = (x1, y1, x2, y2, col, w) => { g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.strokeStyle = col || O; g.lineWidth = w || 5; g.stroke(); g.lineWidth = 5; };
+      switch (type) {
+        case "sword": P([[62, 8], [74, 20], [42, 56], [32, 46]], T, true); L(28, 52, 46, 70, "#c9a227", 7); L(38, 62, 24, 78, "#5a3a22", 9); F(20, 82, 5, "#ffd94d"); break;
+        case "spear": L(26, 80, 64, 32, "#8a5a22", 7); P([[86, 6], [88, 28], [62, 36]], T, true); break;
+        case "bow": g.beginPath(); g.arc(28, 48, 36, -1.15, 1.15); g.strokeStyle = "#7a4a26"; g.lineWidth = 7; g.stroke(); L(46, 15, 46, 81, "#e8e8e8", 3); L(16, 48, 76, 48, T, 4); P([[76, 48], [62, 40], [62, 56]], T, true); L(24, 48, 14, 40, "#d84040", 4); L(24, 48, 14, 56, "#d84040", 4); break;
+        case "arrows": for (let i = 0; i < 3; i++) { const dx = i * 13 - 13; L(34 + dx, 76, 52 + dx, 30, "#a9743f", 4); P([[52 + dx, 30], [44 + dx, 38], [58 + dx, 40]], T, true); } break;
+        case "fish": P([[16, 48], [40, 30], [68, 33], [84, 48], [68, 63], [40, 66]], T, true); P([[16, 48], [28, 33], [28, 63]], "rgba(0,0,0,0.18)", true); F(68, 44, 3.5, O); L(52, 36, 52, 60, "rgba(0,0,0,0.25)", 3); break;
+        case "berry": C(36, 60, 13, T); C(60, 60, 13, T); C(48, 42, 13, T); P([[48, 30], [62, 16], [72, 28], [56, 34]], "#54c864", true); break;
+        case "tart": P([[18, 60], [78, 60], [70, 80], [26, 80]], "#c98a54", true); g.beginPath(); g.ellipse(48, 59, 31, 9, 0, 0, 7); g.fillStyle = T; g.fill(); g.strokeStyle = O; g.stroke(); L(32, 55, 64, 63, "#c98a54", 3); L(64, 55, 32, 63, "#c98a54", 3); break;
+        case "mushroom": g.beginPath(); g.arc(48, 54, 29, Math.PI, 0); g.closePath(); g.fillStyle = T; g.fill(); g.strokeStyle = O; g.stroke(); F(37, 40, 4.5, "#ffffff"); F(59, 35, 3.5, "#ffffff"); P([[40, 54], [56, 54], [53, 78], [43, 78]], "#f2ead8", true); break;
+        case "bowl": g.beginPath(); g.arc(48, 42, 29, 0, Math.PI); g.closePath(); g.fillStyle = T; g.fill(); g.strokeStyle = O; g.stroke(); L(16, 42, 80, 42, O, 5); g.beginPath(); g.arc(38, 26, 5, Math.PI * 1.1, Math.PI * 1.9); g.strokeStyle = "#cfd8e2"; g.stroke(); g.beginPath(); g.arc(56, 24, 5, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); break;
+        case "meat": L(32, 64, 56, 40, "#f2ead8", 10); F(26, 70, 7, "#f2ead8"); F(37, 77, 7, "#f2ead8"); C(65, 33, 18, T); F(59, 28, 5, "rgba(255,255,255,0.35)"); break;
+        case "honey": P([[30, 38], [66, 38], [73, 59], [64, 82], [32, 82], [23, 59]], "#b0722e", true); g.beginPath(); g.ellipse(48, 36, 21, 7, 0, 0, 7); g.fillStyle = "#8a5a22"; g.fill(); g.strokeStyle = O; g.stroke(); L(48, 12, 48, 30, "#8a5a22", 6); C(48, 56, 9, T); break;
+        case "cake": P([[22, 54], [74, 54], [74, 80], [22, 80]], "#f2e2c4", true); P([[22, 54], [74, 54], [74, 63], [65, 58], [57, 65], [48, 58], [39, 65], [31, 58], [22, 63]], T, true); L(48, 46, 48, 34, "#7ad7ff", 4); F(48, 46, 6, "#d84040"); break;
+        case "apple": C(48, 58, 24, T); L(48, 36, 53, 22, "#5a3a22", 5); P([[53, 24], [68, 17], [70, 30], [55, 33]], "#54c864", true); F(38, 50, 5, "rgba(255,255,255,0.4)"); break;
+        case "potion": P([[42, 12], [54, 12], [54, 30], [42, 30]], "#d7dee8", true); F(48, 63, 17, T); C(48, 59, 24, "rgba(215,222,232,0.35)"); F(40, 51, 5, "rgba(255,255,255,0.55)"); L(40, 12, 56, 12, "#8a5a22", 6); break;
+        case "logs": C(31, 63, 13, "#c9a06a"); C(53, 69, 13, "#c9a06a"); C(42, 48, 13, "#c9a06a"); F(31, 63, 5, "#a97a4c"); F(53, 69, 5, "#a97a4c"); F(42, 48, 5, "#a97a4c"); break;
+        case "rock": P([[20, 72], [30, 40], [53, 25], [75, 44], [79, 72]], T, true); L(53, 25, 47, 72, "rgba(0,0,0,0.22)", 3); break;
+        case "ore": P([[20, 72], [30, 40], [53, 25], [75, 44], [79, 72]], "#8a8378", true); F(42, 48, 5, T); F(58, 58, 4, T); F(50, 36, 3.5, T); break;
+        case "shard": P([[48, 8], [67, 38], [55, 86], [41, 86], [29, 38]], T, true); L(48, 8, 48, 86, "rgba(255,255,255,0.5)", 3); L(29, 38, 67, 38, "rgba(0,0,0,0.2)", 3); break;
+        case "gel": C(48, 58, 24, T); C(39, 37, 11, T); F(39, 51, 5, "rgba(255,255,255,0.55)"); F(42, 58, 3.2, O); F(55, 58, 3.2, O); break;
+        case "hide": P([[27, 20], [69, 20], [79, 47], [69, 77], [48, 66], [27, 77], [17, 47]], T, true); P([[33, 30], [63, 30], [69, 47], [63, 66], [48, 58], [33, 66], [27, 47]], "rgba(0,0,0,0.15)", true); break;
+        case "shell": g.beginPath(); g.arc(48, 64, 29, Math.PI, 0); g.closePath(); g.fillStyle = T; g.fill(); g.strokeStyle = O; g.stroke(); L(48, 64, 48, 37, "rgba(0,0,0,0.25)", 3); L(48, 64, 30, 42, "rgba(0,0,0,0.25)", 3); L(48, 64, 66, 42, "rgba(0,0,0,0.25)", 3); L(18, 64, 78, 64, O, 5); break;
+        case "silk": g.strokeStyle = T; g.lineWidth = 3; for (let r = 10; r <= 34; r += 12) { g.beginPath(); g.arc(48, 48, r, 0, 7); g.stroke(); } for (let a = 0; a < 8; a++) { const x = 48 + Math.cos(a * Math.PI / 4) * 36, y = 48 + Math.sin(a * Math.PI / 4) * 36; L(48, 48, x, y, T, 2); } break;
+        case "core": { const pts = []; for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 + 0.39; pts.push([48 + Math.cos(a) * 26, 48 + Math.sin(a) * 26]); } P(pts, T, true); F(48, 48, 9, "rgba(255,255,255,0.85)"); break; }
+        case "essence": g.beginPath(); g.moveTo(29, 80); g.lineTo(29, 46); g.arc(48, 46, 19, Math.PI, 0); g.lineTo(67, 80); g.lineTo(58, 72); g.lineTo(48, 80); g.lineTo(38, 72); g.closePath(); g.fillStyle = T; g.fill(); g.strokeStyle = O; g.stroke(); F(41, 46, 3.4, O); F(55, 46, 3.4, O); break;
+        case "flower": for (let i = 0; i < 5; i++) { const a = i * Math.PI * 2 / 5 - 1.57; F(48 + Math.cos(a) * 16, 48 + Math.sin(a) * 16, 11, T); } C(48, 48, 8, "#fff3b0"); break;
+        case "herb": for (const dx of [-15, 0, 15]) P([[48 + dx, 80], [39 + dx, 50], [48 + dx, 28], [57 + dx, 50]], T, true); break;
+        case "sack": P([[33, 36], [63, 36], [74, 60], [64, 85], [32, 85], [22, 60]], T, true); L(35, 33, 61, 33, "#8a5a22", 7); L(48, 33, 42, 22, "#8a5a22", 4); L(48, 33, 54, 22, "#8a5a22", 4); break;
+        case "letter": P([[15, 29], [81, 29], [81, 69], [15, 69]], T, true); L(15, 29, 48, 53, "rgba(0,0,0,0.3)", 3); L(81, 29, 48, 53, "rgba(0,0,0,0.3)", 3); F(70, 60, 5, "#d84040"); break;
+        case "lamp": C(48, 15, 5, null); L(48, 20, 48, 26, O, 4); P([[34, 26], [62, 26], [66, 72], [30, 72]], "#3a3f4a", true); g.fillStyle = T; g.fillRect(40, 34, 16, 30); g.strokeStyle = O; g.strokeRect(40, 34, 16, 30); L(29, 78, 67, 78, O, 6); break;
+        case "gem": P([[28, 28], [68, 28], [82, 44], [48, 84], [14, 44]], T, true); L(14, 44, 82, 44, "rgba(255,255,255,0.55)", 3); L(28, 28, 37, 44, "rgba(255,255,255,0.55)", 3); L(68, 28, 59, 44, "rgba(255,255,255,0.55)", 3); L(37, 44, 48, 84, "rgba(0,0,0,0.18)", 3); L(59, 44, 48, 84, "rgba(0,0,0,0.18)", 3); break;
+        case "rod": L(16, 84, 72, 22, "#8a5a22", 5); g.beginPath(); g.moveTo(72, 22); g.quadraticCurveTo(82, 40, 76, 58); g.strokeStyle = "#e8e8e8"; g.lineWidth = 2; g.stroke(); g.beginPath(); g.arc(74, 62, 5, 0, 4.5); g.strokeStyle = O; g.lineWidth = 3; g.stroke(); C(50, 46, 6, "#5a7ac8"); break;
+        case "worm": F(28, 60, 9, T); F(43, 51, 9, T); F(58, 57, 9, T); F(71, 47, 8, T); L(36, 46, 40, 58, "rgba(0,0,0,0.25)", 3); L(51, 44, 55, 56, "rgba(0,0,0,0.25)", 3); break;
+        case "torch": L(43, 86, 51, 46, "#8a5a22", 9); P([[52, 6], [65, 29], [53, 50], [39, 29]], T, true); g.beginPath(); g.ellipse(52, 33, 5, 10, 0, 0, 7); g.fillStyle = "#ffe9a0"; g.fill(); break;
+        case "tent": P([[48, 16], [84, 80], [12, 80]], T, true); P([[48, 42], [63, 80], [33, 80]], "#33413a", true); break;
+        case "cloak": P([[48, 12], [69, 29], [65, 82], [48, 73], [31, 82], [27, 29]], T, true); F(48, 25, 5.5, "#ffd94d"); L(48, 30, 48, 66, "rgba(0,0,0,0.25)", 3); break;
+        case "boots": P([[24, 38], [43, 38], [43, 62], [59, 62], [59, 78], [24, 78]], T, true); P([[48, 30], [63, 30], [63, 50], [75, 50], [75, 63], [48, 63]], "rgba(0,0,0,0.28)", true); break;
+        case "charm": F(39, 39, 10, T); F(57, 39, 10, T); F(39, 57, 10, T); F(57, 57, 10, T); L(48, 62, 55, 79, "#3f7d4d", 4); break;
+        case "paw": g.beginPath(); g.ellipse(48, 62, 15, 12, 0, 0, 7); g.fillStyle = T; g.fill(); F(27, 44, 6.5, T); F(41, 35, 6.5, T); F(56, 35, 6.5, T); F(70, 44, 6.5, T); break;
+        case "coin": C(48, 48, 27, "#f2b33d"); C(48, 48, 18, "#ffd94d"); F(39, 38, 5, "rgba(255,255,255,0.65)"); break;
+        case "spark": P([[48, 10], [63, 40], [61, 59], [48, 86], [35, 59], [33, 40]], "#8affd8", true); F(48, 50, 9, "#eafffa"); break;
+        case "flame": P([[48, 6], [65, 35], [67, 58], [56, 78], [40, 78], [29, 58], [33, 34]], T, true); g.beginPath(); g.ellipse(48, 60, 8, 13, 0, 0, 7); g.fillStyle = "#ffe9a0"; g.fill(); break;
+        case "snow": g.strokeStyle = T; L(48, 14, 48, 82, T, 5); L(19, 31, 77, 65, T, 5); L(77, 31, 19, 65, T, 5); F(48, 48, 5, T); break;
+        case "wind": g.strokeStyle = T; g.lineWidth = 5; g.beginPath(); g.arc(54, 42, 19, 0.5, 4.8); g.stroke(); g.beginPath(); g.arc(42, 64, 12, 3.6, 7.8); g.stroke(); L(12, 30, 40, 30, T, 5); L(10, 50, 32, 50, T, 4); break;
+        case "sun": C(48, 48, 15, "#ffd94d"); for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4; L(48 + Math.cos(a) * 21, 48 + Math.sin(a) * 21, 48 + Math.cos(a) * 31, 48 + Math.sin(a) * 31, "#ffb33d", 5); } break;
+        case "cloud": F(37, 60, 14, "#e8eef4"); F(56, 51, 18, "#e8eef4"); F(68, 61, 12, "#e8eef4"); g.fillStyle = "#e8eef4"; g.fillRect(30, 56, 48, 13); break;
+        case "rain": F(37, 52, 13, "#e8eef4"); F(55, 44, 16, "#e8eef4"); F(66, 53, 11, "#e8eef4"); g.fillStyle = "#e8eef4"; g.fillRect(30, 48, 46, 12); L(34, 70, 30, 82, "#7ad7ff", 4); L(50, 70, 46, 82, "#7ad7ff", 4); L(66, 70, 62, 82, "#7ad7ff", 4); break;
+        case "fog": F(37, 46, 12, "#dfe6ee"); F(54, 39, 15, "#dfe6ee"); F(64, 47, 10, "#dfe6ee"); L(24, 66, 72, 66, "#b9c4d0", 5); L(32, 78, 76, 78, "#b9c4d0", 5); break;
+        case "storm": F(37, 48, 13, "#d5dbe4"); F(55, 41, 16, "#d5dbe4"); F(66, 49, 11, "#d5dbe4"); P([[50, 58], [38, 78], [47, 78], [42, 90], [60, 68], [51, 68]], "#ffd94d", true); break;
+        case "burst": { const pts = []; for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8, r = i % 2 ? 13 : 31; pts.push([48 + Math.cos(a) * r, 48 + Math.sin(a) * r]); } P(pts, T, true); break; }
+        case "chevron": P([[22, 56], [48, 30], [74, 56], [74, 72], [48, 46], [22, 72]], T, true); break;
+        case "swirl": g.strokeStyle = T; g.lineWidth = 6; g.beginPath(); g.arc(48, 48, 26, 0.6, 4.4); g.stroke(); g.beginPath(); g.arc(48, 48, 15, 2.4, 6.4); g.stroke(); g.beginPath(); g.arc(48, 48, 6, 4.2, 8.2); g.stroke(); break;
+        case "pointer": C(48, 48, 21, null); g.strokeStyle = T; g.lineWidth = 6; g.beginPath(); g.arc(48, 48, 21, 0, 7); g.stroke(); F(48, 48, 7, T); break;
+        default: C(48, 48, 20, T);
+      }
+      const url = c.toDataURL();
+      this.cache[key] = url;
+      return url;
+    },
+    img(type, tint, size) {
+      const s = size || 30;
+      return "<img class='icimg' width='" + s + "' height='" + s + "' src='" + this.draw(type, tint) + "' alt=''>";
+    },
+    die(v) {
+      const key = "die" + v;
+      if (this.cache[key]) return this.cache[key];
+      const c = document.createElement("canvas"); c.width = c.height = 96;
+      const g = c.getContext("2d");
+      g.beginPath();
+      if (g.roundRect) g.roundRect(10, 10, 76, 76, 16); else g.rect(10, 10, 76, 76);
+      g.fillStyle = "#f6f2e8"; g.fill(); g.lineWidth = 5; g.strokeStyle = "#26262e"; g.stroke();
+      const pos = { tl: [30, 30], tr: [66, 30], ml: [30, 48], c: [48, 48], mr: [66, 48], bl: [30, 66], br: [66, 66] };
+      const map = { 1: ["c"], 2: ["tl", "br"], 3: ["tl", "c", "br"], 4: ["tl", "tr", "bl", "br"], 5: ["tl", "tr", "c", "bl", "br"], 6: ["tl", "ml", "bl", "tr", "mr", "br"] };
+      for (const k of map[v] || map[1]) { g.beginPath(); g.arc(pos[k][0], pos[k][1], 8, 0, 7); g.fillStyle = "#26262e"; g.fill(); }
+      const url = c.toDataURL();
+      this.cache[key] = url;
+      return url;
+    }
+  };
+
   /* ---------------- damage numbers ---------------- */
   function damageNumber(worldPos, text, cls) {
     if (!EV.G.settings.damageNumbers && cls !== "coin") return;
@@ -8816,13 +9095,14 @@ EV.UI = (function () {
     setBar("wonderfill", null, p.wonderMeter / 100, "");
     const big = $("bigicon");
     if (big) big.classList.toggle("bigready", p.wonderMeter >= 100);
-    const c = $("coinlabel"); const ct = "🪙 " + p.coins + " · 🏹 " + (p.countItem("arrow_single") + p.countItem("arrows") * 10);
+    const c = $("coinlabel"); const ct = p.coins + " coins · " + (p.countItem("arrow_single") + p.countItem("arrows") * 10) + " arrows";
     if (c && hudCache.coins !== ct) { hudCache.coins = ct; c.textContent = ct; }
-    const w = $("wisplabel"); const wt = "✨ Wisps " + Object.keys(EV.G.wispsCollected).length + "/20";
+    const w = $("wisplabel"); const wt = "Wisps " + Object.keys(EV.G.wispsCollected).length + "/20";
     if (w && hudCache.wisps !== wt) { hudCache.wisps = wt; w.textContent = wt; }
     const clk = $("clocklabel");
-    const wIcon = { clear: "☀️", rain: "🌧️", wind: "🌬️", fog: "🌫️", storm: "⛈️" }[EV.G.weather] || "☀️";
-    const ctt = (EV.isNight() ? "🌙 " : "🕗 ") + EV.fmtTime(EV.G.dayTime) + " " + wIcon + " " + EV.G.weather[0].toUpperCase() + EV.G.weather.slice(1);
+    const ctt = (EV.isNight() ? "Night · " : "") + EV.fmtTime(EV.G.dayTime) + " · " + EV.G.weather[0].toUpperCase() + EV.G.weather.slice(1);
+    const wImg = $("weathericon");
+    if (wImg && hudCache.weather !== EV.G.weather) { hudCache.weather = EV.G.weather; wImg.src = Icons.draw(EV.G.weather === "clear" ? "sun" : EV.G.weather, "#ffd94d"); }
     if (clk && hudCache.clock !== ctt) { hudCache.clock = ctt; clk.textContent = ctt; }
     if (bossRef) updateBossBar(bossRef);
   }
@@ -8879,7 +9159,7 @@ EV.UI = (function () {
 
   /* ---------------- Lore popup ---------------- */
   function showLorePopup(entry) {
-    $("lore-title").textContent = "📜 " + entry.title;
+    $("lore-title").textContent = entry.title;
     $("lore-text").textContent = entry.text;
     showPanel("lore-popup");
   }
@@ -8897,7 +9177,7 @@ EV.UI = (function () {
     const def = EV.DATA.ITEMS[id];
     const d = document.createElement("div");
     d.className = "invcell" + (invSelected === id ? " sel" : "");
-    d.innerHTML = "<span class='ic'>" + def.icon + "</span>" + def.name.split(" (")[0] +
+    d.innerHTML = Icons.img(def.icon, def.tint, 30) + def.name.split(" (")[0] +
       (count > 1 ? "<span class='cnt'>" + count + "</span>" : "") + (priceHtml || "");
     d.onclick = () => onClick(id);
     return d;
@@ -8906,9 +9186,9 @@ EV.UI = (function () {
     const p = EV.G.player; if (!p) return;
     const eq = $("inv-equip");
     const w = EV.DATA.ITEMS[p.equipment.weapon], b = EV.DATA.ITEMS[p.equipment.bow];
-    eq.textContent = "Equipped: " + (w ? w.icon + " " + w.name : "none") + " · " + (b ? b.icon + " " + b.name : "none") +
-      (p.equipment.gear ? " · " + EV.DATA.ITEMS[p.equipment.gear].icon + " " + EV.DATA.ITEMS[p.equipment.gear].name : "") +
-      " · 🪙 " + p.coins + " coins";
+    eq.textContent = "Equipped: " + (w ? w.name : "none") + " · " + (b ? b.name : "none") +
+      (p.equipment.gear ? " · " + EV.DATA.ITEMS[p.equipment.gear].name : "") +
+      " · " + p.coins + " coins";
     const grid = $("inv-grid"); grid.innerHTML = "";
     const ids = Object.keys(p.inventory).filter((id) => p.inventory[id] > 0);
     if (!ids.length) grid.innerHTML = "<p style='color:#9fc6d8;'>Your pack is empty.</p>";
@@ -8921,7 +9201,7 @@ EV.UI = (function () {
     const box = $("inv-detail"); const p = EV.G.player;
     if (!invSelected || !p || !p.inventory[invSelected]) { box.textContent = "Tap an item to see what it does."; return; }
     const def = EV.DATA.ITEMS[invSelected];
-    let html = "<b>" + def.icon + " " + def.name + "</b> x" + p.inventory[invSelected] + "<br>" + def.desc;
+    let html = "<b>" + Icons.img(def.icon, def.tint, 26) + " " + def.name + "</b> x" + p.inventory[invSelected] + "<br>" + def.desc;
     if (def.dmg) html += "<br>Damage: " + def.dmg;
     if (def.defense) html += "<br>Defense: +" + def.defense;
     box.innerHTML = html + "<br>";
@@ -8934,7 +9214,7 @@ EV.UI = (function () {
     if (def.type === "weapon" || def.type === "bow" || def.type === "gear") {
       const equipped = p.equipment.weapon === invSelected || p.equipment.bow === invSelected || p.equipment.gear === invSelected;
       const b = document.createElement("button");
-      b.className = "gbtn small"; b.textContent = equipped ? "Equipped ✓" : "Equip";
+      b.className = "gbtn small"; b.textContent = equipped ? "Equipped" : "Equip";
       b.disabled = equipped;
       b.onclick = () => equipItem(invSelected);
       box.appendChild(b);
@@ -8982,11 +9262,11 @@ EV.UI = (function () {
   }
   function renderShop() {
     const p = EV.G.player; if (!p) return;
-    $("shop-coins").textContent = "🪙 Your coins: " + p.coins;
+    $("shop-coins").textContent = "Your coins: " + p.coins;
     const buy = $("shop-buy"); buy.innerHTML = "";
     for (const id of EV.DATA.SHOP) {
       const def = EV.DATA.ITEMS[id];
-      const cell = itemCell(id, p.countItem(id), "<div class='pr'>🪙 " + def.price + "</div>", () => {
+      const cell = itemCell(id, p.countItem(id), "<div class='pr'>" + Icons.img("coin", "#f2b33d", 15) + " " + def.price + "</div>", () => {
         if (p.coins < def.price) { toast("Not enough coins for " + def.name + "."); EV.Audio.sfx("uiClick"); return; }
         p.coins -= def.price; p.addItem(id, 1);
         EV.Audio.sfx("coin"); toast("Bought " + def.name + ".");
@@ -9000,7 +9280,7 @@ EV.UI = (function () {
     for (const id of ids) {
       const def = EV.DATA.ITEMS[id];
       const val = Math.max(1, Math.floor(def.price * 0.55));
-      sell.appendChild(itemCell(id, p.inventory[id], "<div class='pr'>🪙 +" + val + "</div>", () => {
+      sell.appendChild(itemCell(id, p.inventory[id], "<div class='pr'>" + Icons.img("coin", "#f2b33d", 15) + " +" + val + "</div>", () => {
         if (p.equipment.weapon === id || p.equipment.bow === id || p.equipment.gear === id) { toast("You can't sell what you're wearing. Equip something else first."); return; }
         p.removeItem(id, 1); p.coins += val;
         EV.Audio.sfx("coin"); toast("Sold " + def.name + " for " + val + " coins.");
@@ -9014,7 +9294,7 @@ EV.UI = (function () {
   function openRecipeMenu(station) {
     recipeStation = station;
     EV.G.mode = "recipe";
-    $("recipe-title").textContent = station === "cooking" ? "🍳 Cooking" : "🔨 Crafting";
+    $("recipe-title").textContent = station === "cooking" ? "Cooking" : "Crafting";
     $("btn-cook-challenge").style.display = station === "cooking" ? "" : "none";
     showPanel("recipe-panel");
     renderRecipes();
@@ -9026,12 +9306,12 @@ EV.UI = (function () {
     for (const r of EV.DATA.RECIPES.filter((x) => x.station === recipeStation)) {
       const needs = Object.entries(r.needs).map(([id, n]) => {
         const have = p.countItem(id);
-        return (have >= n ? "✓ " : "✗ ") + EV.DATA.ITEMS[id].name + " " + have + "/" + n;
+        return (have >= n ? "" : "Need more: ") + EV.DATA.ITEMS[id].name + " " + have + "/" + n;
       }).join(" · ");
       const can = Object.entries(r.needs).every(([id, n]) => p.countItem(id) >= n);
       const row = document.createElement("div");
       row.className = "recipe-row";
-      row.innerHTML = "<div><b>" + EV.DATA.ITEMS[r.gives].icon + " " + r.name + "</b><br><span class='needs'>" + needs + "</span><br><span class='needs'>" + r.desc + "</span></div>";
+      row.innerHTML = "<div><b>" + Icons.img(EV.DATA.ITEMS[r.gives].icon, EV.DATA.ITEMS[r.gives].tint, 24) + " " + r.name + "</b><br><span class='needs'>" + needs + "</span><br><span class='needs'>" + r.desc + "</span></div>";
       const b = document.createElement("button");
       b.className = "gbtn small"; b.textContent = recipeStation === "cooking" ? "Cook it" : "Craft it";
       b.disabled = !can;
@@ -9055,11 +9335,11 @@ EV.UI = (function () {
     EV.G.mode = "minigame";
     hidePanel("recipe-panel");
     showPanel("minigame-panel");
-    $("mg-title").textContent = kind === "fishing" ? "🎣 Fishing at the Dock" : "🎯 Cooking Challenge";
+    $("mg-title").textContent = kind === "fishing" ? "Fishing at the Dock" : "Cooking Challenge";
     $("mg-info").textContent = kind === "fishing"
       ? "Press REEL when the gold marker is inside the green zone. Catch 1 fish per good round - 3 rounds."
       : "Press SERVE when the gold marker is inside the green zone. 2 good rounds out of 3 makes a fine dish.";
-    $("mg-action").textContent = kind === "fishing" ? "🎣 REEL!" : "🍳 SERVE!";
+    $("mg-action").textContent = kind === "fishing" ? "REEL!" : "SERVE!";
     resetMgRound();
     updateMgStatus();
   }
@@ -9089,15 +9369,15 @@ EV.UI = (function () {
     if (EV.G.mode === "minigame") EV.G.mode = "play";
     const p = EV.G.player;
     if (MG.kind === "fishing") {
-      if (MG.wins > 0) { EV.Systems.addItemToast("raw_fish", MG.wins); toast("🎣 You caught " + MG.wins + " fish! Sella would be proud."); }
-      else toast("🎣 The fish win today. Not a single catch.");
+      if (MG.wins > 0) { EV.Systems.addItemToast("raw_fish", MG.wins); toast("You caught " + MG.wins + " fish! Sella would be proud."); }
+      else toast("The fish win today. Not a single catch.");
       if (MG.wins === 3 && Math.random() < 0.4) EV.Systems.addItemToast("golden_apple", 1);
     } else {
       const dishMap = { raw_fish: "grilled_fish", mushroom: "mushroom_soup", boar_meat: "roast_boar" };
       const dish = dishMap[MG.ingredient] || "grilled_fish";
-      if (MG.wins >= 2) { EV.Systems.addItemToast(dish, 1); toast("🍳 A fine " + EV.DATA.ITEMS[dish].name + "!"); }
-      else if (MG.wins === 1) { EV.Systems.addItemToast(dish, 1); toast("🍳 A little burnt at the edges, but edible."); }
-      else toast("🍳 Burnt to a crisp. The ingredient is lost - even Pip won't eat it.");
+      if (MG.wins >= 2) { EV.Systems.addItemToast(dish, 1); toast("A fine " + EV.DATA.ITEMS[dish].name + "!"); }
+      else if (MG.wins === 1) { EV.Systems.addItemToast(dish, 1); toast("A little burnt at the edges, but edible."); }
+      else toast("Burnt to a crisp. The ingredient is lost - even Pip won't eat it.");
     }
   }
   function openFishing() {
@@ -9129,16 +9409,17 @@ EV.UI = (function () {
     Dice.rolling = true;
     EV.Audio.sfx("dice");
     let ticks = 0;
-    const faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+    const setDice = (a, b, c2, d) => { $("dp1").src = Icons.die(a); $("dp2").src = Icons.die(b); $("db1").src = Icons.die(c2); $("db2").src = Icons.die(d); };
+    const pairFor = (total) => { const a = EV.randInt(Math.max(1, total - 6), Math.min(6, total - 1)); return [a, total - a]; };
     const iv = setInterval(() => {
-      $("dice-player").textContent = faces[EV.randInt(0, 5)] + faces[EV.randInt(0, 5)];
-      $("dice-bram").textContent = faces[EV.randInt(0, 5)] + faces[EV.randInt(0, 5)];
+      setDice(EV.randInt(1, 6), EV.randInt(1, 6), EV.randInt(1, 6), EV.randInt(1, 6));
       if (++ticks > 6) {
         clearInterval(iv); Dice.rolling = false;
         const pr = EV.randInt(1, 6) + EV.randInt(1, 6);
         const br = EV.randInt(1, 6) + EV.randInt(1, 6);
-        // Re-roll display to match the real numbers.
-        $("dice-player").textContent = faces[EV.randInt(0, 5)] + faces[EV.randInt(0, 5)];
+        // Show dice that match the real totals.
+        const pp = pairFor(pr), bb = pairFor(br);
+        setDice(pp[0], pp[1], bb[0], bb[1]);
         const log = $("dice-log");
         let line;
         if (pr > br) { Dice.pWins++; line = "You roll " + pr + " against Bram's " + br + " - round to you!"; }
@@ -9152,14 +9433,14 @@ EV.UI = (function () {
           Dice.over = true;
           const p = EV.G.player;
           if (Dice.pWins >= 3) {
-            if (Dice.bet) { p.addCoins(25); log.innerHTML = "<div>🏆 You win the match! Bram pays out 25 coins, grumbling happily.</div>" + log.innerHTML; }
-            else log.innerHTML = "<div>🏆 You win the match! Bram bows to a fellow sharp.</div>" + log.innerHTML;
+            if (Dice.bet) { p.addCoins(25); log.innerHTML = "<div>You win the match! Bram pays out 25 coins, grumbling happily.</div>" + log.innerHTML; }
+            else log.innerHTML = "<div>You win the match! Bram bows to a fellow sharp.</div>" + log.innerHTML;
             EV.Audio.sfx("victory");
           } else {
             if (Dice.bet) { p.coins = Math.max(0, p.coins - 10); log.innerHTML = "<div>Bram wins. Your 10 coins slide across the felt. \"Again, traveller?\"</div>" + log.innerHTML; }
             else log.innerHTML = "<div>Bram wins - this time. \"Again, traveller?\"</div>" + log.innerHTML;
           }
-          $("btn-roll").textContent = "🎲 Play Again";
+          $("btn-roll").textContent = "Play Again";
           Dice.pWins = 0; Dice.bWins = 0; Dice.over = false; Dice.bet = EV.G.player.coins >= 10;
           $("dice-pscore").textContent = "Rounds: 0"; $("dice-bscore").textContent = "Rounds: 0";
         }
@@ -9182,7 +9463,7 @@ EV.UI = (function () {
     for (let i = 0; i < 4; i++) Target.meshes.push(makeTarget(TARGET_POINTS[i][0], TARGET_POINTS[i][1]));
     show("target-hud"); show("crosshair");
     updateTargetInfo();
-    toast("🎯 Target challenge! Shoot as many targets as you can in 30 seconds.");
+    toast("Target challenge! Shoot as many targets as you can in 30 seconds.");
     EV.Audio.sfx("questDone");
   }
   function makeTarget(x, z) {
@@ -9202,7 +9483,7 @@ EV.UI = (function () {
     return { grp, board, down: 0, x, z };
   }
   function updateTargetInfo() {
-    $("target-info").textContent = "🎯 Targets: " + Target.score + " · Time: " + Math.ceil(Target.time) + " · Arrows: " +
+    $("target-info").textContent = "Targets: " + Target.score + " · Time: " + Math.ceil(Target.time) + " · Arrows: " +
       (EV.G.player.countItem("arrow_single") + EV.G.player.countItem("arrows") * 10);
   }
   const _ray = new THREE.Raycaster(); const _center = new THREE.Vector2(0, 0);
@@ -9227,7 +9508,7 @@ EV.UI = (function () {
       Target.score++;
       EV.Audio.sfx("arrowHit");
       EV.Entities.burst(best.grp.position.clone().setY(best.grp.position.y + 1.7), 0xffd94d, 10, 3, 0.4, -3);
-      toast("🎯 Hit! Score: " + Target.score);
+      toast("Hit! Score: " + Target.score);
     }
     updateTargetInfo();
   }
@@ -9239,8 +9520,8 @@ EV.UI = (function () {
     hide("target-hud"); hide("crosshair");
     if (EV.G.mode === "minigame") EV.G.mode = "play";
     const reward = Target.score >= 10 ? 60 : Target.score >= 6 ? 35 : Target.score >= 3 ? 15 : 0;
-    if (reward > 0) { EV.G.player.addCoins(reward); toast("🎯 Challenge over! Score " + Target.score + " - Fenn pays you " + reward + " coins."); }
-    else toast("🎯 Challenge over! Score " + Target.score + ". Hit 3+ targets to earn coins.");
+    if (reward > 0) { EV.G.player.addCoins(reward); toast("Challenge over! Score " + Target.score + " - Fenn pays you " + reward + " coins."); }
+    else toast("Challenge over! Score " + Target.score + ". Hit 3+ targets to earn coins.");
     EV.Audio.sfx("questDone");
   }
 
@@ -9270,17 +9551,28 @@ EV.UI = (function () {
       }
     }
     g.putImageData(img, 0, 0);
-    function marker(x, z, emoji, size) {
-      g.font = (size || 17) + "px serif"; g.textAlign = "center";
-      g.fillText(emoji, toPx(x), toPx(z) + 6);
+    // Landmark markers are drawn shapes (no emoji): house, drop, gem,
+    // columns, flame triangle, tent - matched by the legend under the map.
+    function marker(x, z, shape, color) {
+      const cx = toPx(x), cy = toPx(z);
+      g.save(); g.translate(cx, cy); g.fillStyle = color; g.strokeStyle = "rgba(10,16,10,0.85)"; g.lineWidth = 1.6;
+      g.beginPath();
+      if (shape === "house") { g.rect(-6, -2, 12, 9); g.moveTo(-8, -2); g.lineTo(0, -10); g.lineTo(8, -2); }
+      else if (shape === "drop") { g.moveTo(0, -10); g.quadraticCurveTo(7, 0, 7, 3); g.arc(0, 3, 7, 0, Math.PI); g.quadraticCurveTo(-7, 0, 0, -10); }
+      else if (shape === "gem") { g.moveTo(-7, -4); g.lineTo(7, -4); g.lineTo(11, 2); g.lineTo(0, 11); g.lineTo(-11, 2); }
+      else if (shape === "columns") { g.rect(-8, -8, 4, 16); g.rect(-2, -8, 4, 16); g.rect(4, -8, 4, 16); g.rect(-9, -10, 18, 3); }
+      else if (shape === "flame") { g.moveTo(0, -11); g.lineTo(8, 6); g.quadraticCurveTo(0, 11, -8, 6); }
+      else if (shape === "tent") { g.moveTo(0, -9); g.lineTo(10, 8); g.lineTo(-10, 8); g.moveTo(0, -2); g.lineTo(4, 8); g.lineTo(-4, 8); }
+      else if (shape === "star") { for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5 - Math.PI / 2, r = i % 2 ? 5 : 12; const px = Math.cos(a) * r, py = Math.sin(a) * r; i ? g.lineTo(px, py) : g.moveTo(px, py); } }
+      g.closePath(); g.fill(); g.stroke(); g.restore();
     }
     const S = EV.World.SPOTS;
-    marker(S.square.x, S.square.z, "🏘️");
-    marker(EV.World.P.lakeX, EV.World.P.lakeZ, "🎣");
-    marker(EV.World.P.caveX, EV.World.P.caveZ, "💎");
-    marker(EV.World.P.ruinX, EV.World.P.ruinZ, "🏛️");
-    marker(EV.World.P.lavaX, EV.World.P.lavaZ, "🌋");
-    marker(S.camp.x, S.camp.z, "⛺");
+    marker(S.square.x, S.square.z, "house", "#ffd9a0");
+    marker(EV.World.P.lakeX, EV.World.P.lakeZ, "drop", "#7cc7e8");
+    marker(EV.World.P.caveX, EV.World.P.caveZ, "gem", "#b48ae8");
+    marker(EV.World.P.ruinX, EV.World.P.ruinZ, "columns", "#e8e2d2");
+    marker(EV.World.P.lavaX, EV.World.P.lavaZ, "flame", "#ff7a33");
+    marker(S.camp.x, S.camp.z, "tent", "#8ae89a");
     // Unfound wisps as pale dots.
     g.fillStyle = "rgba(174,242,255,0.75)";
     for (const w of EV.World.dyn.wisps) {
@@ -9289,7 +9581,7 @@ EV.UI = (function () {
     // Objective star.
     const targets = [S.elder, { x: 0, z: 30 }, S.woods, { x: EV.World.P.ruinX - 14, z: EV.World.P.ruinZ + 2 }, S.ruinArena, S.lantern];
     const step = EV.Systems.mainStepIndex();
-    if (step < targets.length && targets[step]) marker(targets[step].x, targets[step].z, "⭐", 22);
+    if (step < targets.length && targets[step]) marker(targets[step].x, targets[step].z, "star", "#ffd94d");
     // Player arrow.
     const p = EV.G.player;
     if (p) {
@@ -9309,9 +9601,9 @@ EV.UI = (function () {
     const S = EV.Systems.S;
     let html = "<h3>Main Quest - Restore the Vale Lantern</h3>";
     EV.DATA.MAIN_QUEST.forEach((q, i) => {
-      if (i < S.mainStep) html += "<div class='qdone'>✅ " + q.title + "</div>";
-      else if (i === S.mainStep) html += "<div class='qactive'>⭐ " + q.title + " - " + q.desc + "</div>";
-      else html += "<div class='qlock'>🔒 " + q.title + "</div>";
+      if (i < S.mainStep) html += "<div class='qdone'>Done - " + q.title + "</div>";
+      else if (i === S.mainStep) html += "<div class='qactive'>" + q.title + " - " + q.desc + "</div>";
+      else html += "<div class='qlock'>" + q.title + " (locked)</div>";
     });
     html += "<h3>Village Jobs</h3>";
     let anyJob = false;
@@ -9319,12 +9611,12 @@ EV.UI = (function () {
       if (!n.job) continue;
       anyJob = true;
       const st = EV.Systems.jobState(n.job.id);
-      const label = st === "done" ? "<span class='qdone'>✅ Done</span>" : st === "active" ? "<span class='qactive'>Active" + EV.Systems.jobProgressText(n.job) + "</span>" : "<span class='qlock'>Available - talk to " + n.name + "</span>";
+      const label = st === "done" ? "<span class='qdone'>Done</span>" : st === "active" ? "<span class='qactive'>Active" + EV.Systems.jobProgressText(n.job) + "</span>" : "<span class='qlock'>Available - talk to " + n.name + "</span>";
       html += "<div>" + n.job.title + " - " + label + "<br><span style='color:#9fc6d8; font-size:13px;'>" + n.job.desc + "</span></div>";
     }
     if (!anyJob) html += "<div>No jobs yet.</div>";
-    html += "<h3>Secrets</h3><div>✨ Wisps found: " + Object.keys(EV.G.wispsCollected).length + "/20" +
-      " · 🧰 Chests opened: " + Object.keys(EV.G.chestsOpened).length + "</div>";
+    html += "<h3>Secrets</h3><div>Wisps found: " + Object.keys(EV.G.wispsCollected).length + "/20" +
+      " · Chests opened: " + Object.keys(EV.G.chestsOpened).length + "</div>";
     const nearest = EV.World.dyn.wisps[0];
     if (nearest) html += "<div style='color:#9fc6d8;'>A wisp hides: " + nearest.hint + ".</div>";
     html += "<h3>Lore</h3>";
@@ -9469,6 +9761,17 @@ EV.UI = (function () {
   /* ---------------- Init: wire every button ---------------- */
   function init(callbacks) {
     onStartCb = callbacks.onStart; onContinueCb = callbacks.onContinue;
+    // Fill every icon slot with its custom drawn icon (no emoji anywhere).
+    document.querySelectorAll("img[data-icon]").forEach((im) => { im.src = Icons.draw(im.getAttribute("data-icon"), im.getAttribute("data-tint") || "#e8e8e8"); });
+    document.querySelectorAll(".powericon[data-power]").forEach((el) => {
+      const def = EV.DATA.POWERS[el.getAttribute("data-power")];
+      if (def) el.insertAdjacentHTML("afterbegin", Icons.img(def.icon, "#" + def.color.toString(16).padStart(6, "0"), 30));
+    });
+    const big = $("bigicon");
+    if (big) big.insertAdjacentHTML("afterbegin", Icons.img("sun", "#ffd94d", 30));
+    const wicon = $("weathericon");
+    if (wicon) wicon.src = Icons.draw("sun", "#ffd94d");
+    ["dp1", "dp2", "db1", "db2"].forEach((id, i) => { const e = $(id); if (e) e.src = Icons.die([6, 5, 4, 3][i]); });
     buildCreation();
     bindSettings();
     applySettingsToControls();
@@ -9488,7 +9791,7 @@ EV.UI = (function () {
     $("btn-settings-title").onclick = () => { applySettingsToControls(); showPanel("settings-panel"); };
     $("btn-settings2").onclick = () => { applySettingsToControls(); showPanel("settings-panel"); };
     $("btn-resume").onclick = () => hidePanel("pause-panel");
-    $("btn-save").onclick = () => { EV.Systems.save(); toast("💾 Saved."); EV.Audio.sfx("questDone"); };
+    $("btn-save").onclick = () => { EV.Systems.save(); toast("Saved."); EV.Audio.sfx("questDone"); };
     $("btn-quit-title").onclick = () => { EV.Systems.save(); window.location.reload(); };
     $("dialogue-box").addEventListener("click", () => Dialogue.advance());
     $("mg-action").onclick = () => mgAction();
@@ -9511,7 +9814,7 @@ EV.UI = (function () {
            damageNumber, refreshHUD, showBossBar, updateBossBar, hideBossBar, Dialogue,
            showLorePopup, openInventory, openShop, openRecipeMenu, openFishing, openTargetRange,
            openDiceDuel, openMap, openJournal, renderJournal, openPause, showComplete,
-           handleModeKeys, update, showTitle, applySettingsToControls };
+           handleModeKeys, update, showTitle, applySettingsToControls, Icons };
 })();
 
 "use strict";
@@ -9570,9 +9873,18 @@ EV.UI = (function () {
   EV.applyQuality = applyQuality;
   applyQuality();
 
-  window.addEventListener("resize", function () {
+  // Portrait screens (phones held upright) get a wider view and a
+  // camera that sits further back - player feedback: on mobile the
+  // camera was far too close and everything felt covered up.
+  function applyViewportShape() {
+    const portrait = window.innerWidth < window.innerHeight;
     camera.aspect = window.innerWidth / window.innerHeight;
+    camera.fov = portrait ? 68 : 58;
     camera.updateProjectionMatrix();
+  }
+  applyViewportShape();
+  window.addEventListener("resize", function () {
+    applyViewportShape();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
@@ -9612,7 +9924,8 @@ EV.UI = (function () {
       EV.Input.camYaw = camBehind + Math.PI;
     }
     const target = p.pos.clone(); target.y += p.inside ? 1.5 : 1.75;
-    const dist = p.inside ? 5.2 : camDist;
+    const portrait = window.innerWidth < window.innerHeight;
+    const dist = p.inside ? 5.2 : camDist * (portrait ? 1.45 : 1);
     const off = new THREE.Vector3(
       Math.sin(camBehind) * Math.cos(camPitch),
       Math.sin(camPitch),
@@ -9670,10 +9983,10 @@ EV.UI = (function () {
     EV.UI.refreshHUD();
     EV.Systems.refreshObjective();
     if (!isContinue) {
-      EV.UI.toast("🌄 Welcome to Evervale, " + creation.name + "! Follow the gold objective at the top.");
+      EV.UI.toast("Welcome to Evervale, " + creation.name + "! Follow the gold objective at the top.");
       setTimeout(() => EV.UI.toast("Elder Maren waits by the village well. Press E (or USE) to talk."), 5000);
     } else {
-      EV.UI.toast("↻ Welcome back to Evervale.");
+      EV.UI.toast("Welcome back to Evervale.");
     }
     EV.Systems.save();
   }
