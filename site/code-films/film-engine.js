@@ -292,6 +292,7 @@ function applyScene(idx, localT, globalT){
     var key3 = idx+':s'+ci;
     if (localT >= cue.at && !firedSfx[key3]){ firedSfx[key3] = true; if (playing) sfx(cue.t); }
   });
+  renderer.render(scene3, camera);
 }
 function onSceneChange(idx){
   setAmbient(F.scenes[idx].mood);
