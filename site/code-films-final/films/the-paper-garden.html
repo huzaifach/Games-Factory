@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Short Film</title>
+<link rel="stylesheet" href="../film-style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+</head><body>
+<div id="stage"></div><div id="grain"></div>
+<div class="bar-top"></div><div class="bar-bot"></div><div id="fade"></div>
+<div id="hud">
+  <div id="toprow"><a id="back" href="../index.html">&#8592; All Films</a><div id="filmTitle"></div></div>
+  <button id="centerPlay" aria-label="Play">&#9654;</button>
+  <div id="caption"></div>
+  <div id="titleCard"><div class="kicker"></div><h1></h1><div class="sub"></div></div>
+  <div id="subtitleWrap"><div id="subtitle"></div></div>
+  <div id="controls">
+    <button class="cbtn" id="playBtn" aria-label="Play or pause">&#9654;</button>
+    <button class="cbtn" id="restartBtn" aria-label="Restart">&#8634;</button>
+    <input id="seek" type="range" min="0" value="0" step="0.1" aria-label="Seek">
+    <div id="time">00:00 / 00:00</div>
+    <button class="cbtn" id="voiceBtn" aria-label="Toggle voice" title="Voice on or off">A</button>
+    <button class="cbtn" id="muteBtn" aria-label="Mute or unmute">&#9834;</button>
+    <button class="cbtn" id="fsBtn" aria-label="Fullscreen">&#9974;</button>
+  </div>
+</div>
+<div id="endCard"><div class="the">The End</div><h2 id="endTitle"></h2><p id="endLine"></p>
+<div class="row"><button id="replayBtn">Watch Again</button><a href="../index.html">All Films</a></div></div>
+<script src="../data/film4.js"></script>
+<script src="../film-engine.js"></script>
+</body></html>
